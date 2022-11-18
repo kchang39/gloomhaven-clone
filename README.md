@@ -23,12 +23,12 @@ Kamaljeet:
 
 Classes:
 ---
-Ability Card - Monster - Attack Modifier Cards - Battle Goal Cards
+Ability Card - Attack Modifier Cards - Battle Goal Cards
 
 Aaron: Board, "AI"
 
 Kevin: Item, Shop
 
-Carter: Player, Job
+Carter: Player, Job, Monster
 
 Kamaljeet: Deck, Attack Modifier Cards
