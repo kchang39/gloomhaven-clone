@@ -10,3 +10,13 @@ Kevin Chang - kchang39
 Carter Arends - carterka1
 
 Kamaljeet Ram - KamaljeetRam1000
+
+
+User Stories:
+Aaron: 
+
+Kevin: 
+
+Carter:
+
+Kamaljeet:
