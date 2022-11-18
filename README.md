@@ -17,7 +17,7 @@ Aaron:
 
 Kevin: 
 
-Carter:
+Carter: As a player, I want to be able to aquire items so that I feel rewarded for my actions.
 
 Kamaljeet:
 
