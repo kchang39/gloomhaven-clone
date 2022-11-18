@@ -31,4 +31,4 @@ Carter: Player, Job
 
 Kamaljeet:
 
-Player - Job - Item - Ability Card - Monster - Attack Modifier Cards - Shop - Battle Goal Cards - Deck
+Player - Job - Item - Ability Card - Monster - Attack Modifier Cards - Shop - Battle Goal Cards - Deck - Board
