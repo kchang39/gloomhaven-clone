@@ -25,7 +25,7 @@ Classes:
 ---
 Aaron:
 
-Kevin:
+Kevin: Item, Shop
 
 Carter: Player, Job
 
