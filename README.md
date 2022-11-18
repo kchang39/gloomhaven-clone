@@ -23,7 +23,7 @@ Kamaljeet:
 
 Classes:
 ---
-Aaron:
+Aaron: Board, "AI"
 
 Kevin: Item, Shop
 
@@ -31,4 +31,4 @@ Carter: Player, Job
 
 Kamaljeet:
 
-Player - Job - Item - Ability Card - Monster - Attack Modifier Cards - Shop - Battle Goal Cards - Deck - Board
+Player - Job - Item - Ability Card - Monster - Attack Modifier Cards - Shop - Battle Goal Cards - Deck - Board - "AI"
