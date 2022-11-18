@@ -13,7 +13,7 @@ Kamaljeet Ram - KamaljeetRam1000
 
 User Stories:
 ---
-Aaron: 
+Aaron: As a player, I want to be able to actually do things. Having the enemies and player characters on a board rather than simply existing in the void is useful for getting actual gameplay.
 
 Kevin: 
 
