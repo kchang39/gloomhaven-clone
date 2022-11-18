@@ -31,4 +31,4 @@ Kevin: Item, Shop
 
 Carter: Player, Job
 
-Kamaljeet: Deck
+Kamaljeet: Deck, Attack Modifier Cards
