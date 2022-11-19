@@ -10,6 +10,13 @@ public class Deck {
 	 4. Declare a 
 	 */
 	
+	//Main hand
+	//Discard pile
+	//shuffle discard pile back into main hand.
+	//Lost pile
+	//add one card from discard pile to lost pile
+	
+	
 	//Stores a list of AttackModifiersCards objects
 	List<AttackModifierCard> AttackModifierCard = new ArrayList<AttackModifierCard>();
 	List<AbilityCard> AbilityCard = new ArrayList<AbilityCard>();
