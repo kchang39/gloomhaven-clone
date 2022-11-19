@@ -29,6 +29,6 @@ Aaron: Board, "AI"
 
 Kevin: Item, Shop
 
-Carter: Player, Job, Monster
+Carter: Player, Job, Enemy
 
 Kamaljeet: Deck, Attack Modifier Cards, Ability Card, Battle Goal Cards
