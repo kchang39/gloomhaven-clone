@@ -21,10 +21,8 @@ Carter: As a player, I want to be able to aquire items so that I feel rewarded f
 
 Kamaljeet:
 
-Classes:
+Classes & Who Is Making Them:
 ---
-
-
 Aaron: Board, "AI"
 
 Kevin: Item, Shop
