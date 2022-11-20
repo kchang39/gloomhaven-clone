@@ -1,12 +1,7 @@
 package Deck;
 
 public class AbilityCard {
-	//Pseudocode
-	//1. Declare some variables related to the card.
-    //2. Setter and getter functions for the variables or constructors
-	//3. Display card info. 
-	//4. 
-
+	
 	private String Name;//Name of the attack
 	private int initNum;//Initializer number.
 	private int levelNum;//The level of the attack card.
