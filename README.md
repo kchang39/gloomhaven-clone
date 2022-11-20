@@ -21,7 +21,7 @@ Kevin: As a player, I want somewhere to buy items that can improve my combat abi
 
 Carter: As a player, I want to be able to aquire items so that I feel rewarded for my actions.
 
-Kamaljeet:
+Kamaljeet: As a player, I want to be the difficulty of this game to be fairly challenging so that I am entertained.
 
 Classes & Who Is Making Them:
 ---
