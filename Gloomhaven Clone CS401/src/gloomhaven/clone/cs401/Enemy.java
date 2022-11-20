@@ -1,5 +1,8 @@
 package gloomhaven.clone.cs401;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class Enemy {
 	private String name;
 	private int level;
@@ -8,12 +11,13 @@ public class Enemy {
 	private int maxHP;
 	private int currentHP;
 	private boolean alive;
+	private int shield;
 	
 	private int movement;
 	private int attack;
 	private int range;
-//	private Deck deck;
 	
+	private List<EnemyAbilityCard> hand = new ArrayList<EnemyAbilityCard>();//might get moved to scenario class.
 	
 	Enemy(String name, int level, int rarity, int maxHP, int movement, int attack, int range){
 		this.name = name;
@@ -27,9 +31,11 @@ public class Enemy {
 	}
 	
 	void takeDmg(int x) {
-		currentHP -= x;
-		if(currentHP <= 0) {
-			alive = false;
+		if(x > shield) {
+			currentHP -= (x - shield);
+			if(currentHP <= 0) {
+				alive = false;
+			}
 		}
 	}
 	
@@ -42,6 +48,10 @@ public class Enemy {
 	void fullHeal() {
 		currentHP = maxHP;
 	}
+	
+	void addShield(int x) {
+		shield += x;
+	}
 
 	@Override
 	public String toString() {
@@ -52,11 +62,9 @@ public class Enemy {
 		return name;
 	}
 
-
 	public int getLevel() {
 		return level;
 	}
-
 
 	public String getRarity() {
 		if(rarity == 1)
@@ -72,21 +80,21 @@ public class Enemy {
 		return maxHP;
 	}
 
-
 	public int getCurrentHP() {
 		return currentHP;
 	}
-
+	
+	public int getShield() {
+		return shield;
+	}
 
 	public int getMovement() {
 		return movement;
 	}
 
-
 	public int getAttack() {
 		return attack;
 	}
-
 
 	public int getRange() {
 		return range;

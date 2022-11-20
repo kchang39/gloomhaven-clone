@@ -1,10 +1,11 @@
 package gloomhaven.clone.cs401;
 
+import Deck.Deck;
+
 public class Player {
 	private String name;
 	private String job;
-	//private Job job;
-	//private Deck deck;
+	private Deck deck;
 	
 	private int level;
 	private int exp;
@@ -24,7 +25,7 @@ public class Player {
 		levelUpPoint = 45;
 		gold = 0;
 		
-//Hard coded jobs.
+		//Hard coded jobs.
 		if(newJob == 1) {//Scoundrel, hand = 9
 			job = "Scoundrel";
 			maxHP = 8;
@@ -53,7 +54,7 @@ public class Player {
 			levelUpPoint += 45 + (5 * level);
 			level++;
 			
-//Hard coded jobs.
+			//Hard coded jobs.
 			if(job == "Scoundrel") {
 				maxHP = (int) Math.floor(6.5+(1.5*level));
 				currentHP = maxHP;//Restore health on level-up?
@@ -88,6 +89,18 @@ public class Player {
 	
 	void fullHeal() {
 		currentHP = maxHP;
+	}
+	
+	void shortRest() {
+		//deck.shuffle();
+		//deck.lose();
+	}
+	
+	void longRest() {
+		//deck.shuffle();
+		//deck.lose();
+		//deck.refreshItems();
+		healDmg(2);
 	}
 	
 	@Override
