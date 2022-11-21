@@ -6,11 +6,11 @@ public class AttackModifierCard {
 	
 	
 	private String Title;//The title of the attack modifier card.
-	private String AttackBoost;//The attack boost symbol that is used to determine how much the attack is boosted.
-	private String Type;//The 
+	private int AttackBoost;//The attack boost symbol that is used to determine how much the attack is boosted.
+	private int Type;//The 
 	
 	//Constructor for AttackModifierCard class used to initialize variables.
-	public AttackModifierCard(String t, String a, String ty) {
+	public AttackModifierCard(String t, int a, int ty) {
 		Title = t;
 		AttackBoost = a;
 		Type = ty;
