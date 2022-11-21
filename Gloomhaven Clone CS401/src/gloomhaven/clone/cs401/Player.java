@@ -103,9 +103,8 @@ public class Player {
 		healDmg(2);
 	}
 	
-	@Override
-	public String toString() {
-		return this.name + "(Lvl:" + level + " - " + job + "): " + "HP(" + currentHP + "/" + maxHP + ")";
+	public void printPlayer() {
+		System.out.println(this.name + "(Lvl:" + level + " - " + job + "): " + "HP(" + currentHP + "/" + maxHP + ")");
 	}
 
 	public String getName() {
