@@ -44,7 +44,6 @@ public class AbilityCard {
 		if(botHeal != 0) {
 			System.out.println("Heal - " + botHeal);
 	    }
-	    
 	}
 
 	public boolean isDiscarded() {

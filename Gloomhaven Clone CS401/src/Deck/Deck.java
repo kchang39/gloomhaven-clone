@@ -8,7 +8,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Deck {
-
 	private List<AttackModifierCard> atkModCards = new ArrayList<AttackModifierCard>();
 	private List<AbilityCard> abilityCards = new ArrayList<AbilityCard>();
 	private List<BattleGoalCard> battleGoalCards = new ArrayList<BattleGoalCard>();
