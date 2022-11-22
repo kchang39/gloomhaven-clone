@@ -14,17 +14,17 @@ public class AbilityCard {
 	
   //Constructor used to initialize the variables.
 	public AbilityCard(String N, int IN, int ln, String tA, String bA, String sA) {
-		Name = N;
-		initNum = IN;
-		levelNum = ln;
-		topAction = tA;
-		bottomAction = bA;
-		sepAbilities = sA;
+	    Name = N;
+	    initNum = IN;
+	    levelNum = ln;
+            topAction = tA;
+	    bottomAction = bA;
+	    sepAbilities = sA;
 		
 	}
   //Displays all the information on the card.
 	public void ShowAttackCard() {
-		System.out.println("Name: " + Name);
+	    System.out.println("Name: " + Name);
 	    System.out.println("Initializer Number: " + initNum);
 	    	
 	    System.out.println("Level Number: " + levelNum);
