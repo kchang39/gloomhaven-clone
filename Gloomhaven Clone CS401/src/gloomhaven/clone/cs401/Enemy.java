@@ -40,9 +40,11 @@ public class Enemy {
 	}
 	
 	void healDmg(int x) {
-		currentHP += x;
-		if(currentHP > maxHP)
-			currentHP = maxHP;
+		if(alive) {
+			currentHP += x;
+			if(currentHP > maxHP)
+				currentHP = maxHP;
+		}
 	}
 	
 	void fullHeal() {

@@ -11,6 +11,7 @@ public class Player {
 	private int exp;
 	private int levelUpPoint;
 
+	private int shield;
 	private int maxHP;
 	private int currentHP;
 	private boolean alive;
@@ -24,6 +25,7 @@ public class Player {
 		exp = 0;
 		levelUpPoint = 45;
 		gold = 0;
+		shield = 0;
 		
 		//Hard coded jobs.
 		if(newJob == 1) {//Scoundrel, hand = 9
@@ -75,23 +77,31 @@ public class Player {
 	}
 	
 	void takeDmg(int x) {
-		currentHP -= x;
-		if(currentHP <= 0) {
-			alive = false;
+		if(x > shield) {
+			currentHP -= (x - shield);
+			if(currentHP <= 0) {
+				alive = false;
+			}
 		}
 	}
 	
 	void healDmg(int x) {
-		currentHP += x;
-		if(currentHP > maxHP)
-			currentHP = maxHP;
+		if(alive) {
+			currentHP += x;
+			if(currentHP > maxHP)
+				currentHP = maxHP;
+		}
 	}
 	
 	void fullHeal() {
 		currentHP = maxHP;
 	}
 	
-	void shortRest() {
+	void addShield(int x) {
+		shield += x;
+	}
+	
+	void shortRest() {//lose 1 discarded card, shuffle discard piles into main deck
 		//deck.shuffle();
 		//deck.lose();
 	}
@@ -110,32 +120,28 @@ public class Player {
 	public String getName() {
 		return name;
 	}
-
 	public String getJob() {
 		return job;
 	}
-
 	public int getLevel() {
 		return level;
 	}
-
 	public int getExp() {
 		return exp;
 	}
-
 	public int getmaxHP() {
 		return maxHP;
 	}
-
 	public int getcurrentHP() {
 		return currentHP;
 	}
-	
 	public boolean isAlive() {//At the beginning of every round check if alive.
 		return alive;
 	}
-
 	public int getGold() {
 		return gold;
+	}
+	public int getShield() {
+		return shield;
 	}
 }
