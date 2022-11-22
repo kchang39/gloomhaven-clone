@@ -9,75 +9,82 @@ public class Deck {
 	 3. Declare a list of BattleGoalCards
 	 4. Declare a 
 	 */
-	public Deck(int n) {
-		numOfAMCards = n;
-		deckIndex = 0;
-	}
-	//Stores a list of AttackModifiersCards objects
-	List<AttackModifierCard> AttackModifierCardDeck = new ArrayList<AttackModifierCard>();
-	List<AbilityCard> AbilityCardDeck = new ArrayList<AbilityCard>();
-	List<BattleGoalCard> BattleGoalCardDeck = new ArrayList<BattleGoalCard>();
+	private List<AttackModifierCard> atkModCards = new ArrayList<AttackModifierCard>();
+	private List<AbilityCard> abilityCards = new ArrayList<AbilityCard>();
+	private List<BattleGoalCard> battleGoalCards = new ArrayList<BattleGoalCard>();
 	
-	 //After card objects have been declared, the deck needs
-	 //A card needs to be drawn. 
-	 //Constructor class for Deck.
-	 private int numOfAMCards;
-	 private int deckIndex;//Used to draw from the top of the deck.
-	 
-	 //Draw class
-	 public void DrawAttackMod() {
-		 AttackModifierCardDeck.get(0);
+	private List<AbilityCard> hand = new ArrayList<AbilityCard>();//holds your available cards for the scenario.
+	private int handSize;
+	
+	public Deck(int handSize) {
+		this.handSize = handSize;
+		//fill card lists from files. Unique files for each card type.
+		
+		//Test cards.
+		atkModCards.add(new AttackModifierCard(1, false, 1, false, false));
+		atkModCards.add(new AttackModifierCard(0, true, 1, false, false));
+		atkModCards.add(new AttackModifierCard(-1, false, 1, false, false));
+		atkModCards.add(new AttackModifierCard(1, false, 1, true, false));
+		atkModCards.add(new AttackModifierCard(1, false, 1, false, true));
+	}
+	
+	public void pickHand() {
+		//prints all types of cards and prompts the user to pick however many is determined by their class.
+	}
+	
+	public int DrawAttackMod(int dmg) {
+		int index = (int)(Math.random() * (atkModCards.size()));
 		 
-	 }
-	 public void DrawAbility() {
-		 AbilityCardDeck.get(0);
-	 }
-	 public void DrawBattleGoal() {
-		 BattleGoalCardDeck.get(0);
-	 }
+		if(atkModCards.get(index).isDiscarded() || atkModCards.get(index).isLost()) {
+			index = (int)(Math.random() * (atkModCards.size()));
+		}
+		 
+		//Needs check for x2 modifier.
+		if(atkModCards.get(index).isTimesTwo()) {
+			return dmg;
+		}
+		
+		return atkModCards.get(index).getAtkMod();//should range from +2 through -2.
+	}
 	 
-	 //Shuffle function.
-	 //Pseudocode
-	 	//Function type public class void.
-	 	//Create an array/list that will contain all cards. 
-	 	//move the cards around by reinitializing objects in the list.
-	 public void ShuffleDecks() {
-		 System.out.println("Shuffling the decks.");
-		 //Shuffling the Attack Modifier Card deck.
-		 for(int i = 0; i < AttackModifierCardDeck.size(); i++) {
-			 
-		 }
-		 //Shuffling the Ability card deck.
-         for(int i = 0; i < AbilityCardDeck.size(); i++) {
-			 
-		 }
-         System.out.println("Shuffling is done.");
-	 }
+	public void DrawBattleGoal() {
+		 
+		battleGoalCards.get(0);
+	}
 	 
-	 public void Hand() {
-		 List<AttackModifierCard>Hand = new ArrayList<AttackModifierCard>();
-		 List<AbilityCard>hand = new ArrayList<AbilityCard>();
-	 }
-	 
-	//List of Discarded cards.
-	List<AttackModifierCard> DiscardedAMCards = new ArrayList<AttackModifierCard>();
-	List<AbilityCard> DiscardedAbilityCards = new ArrayList<AbilityCard>();
-	List<BattleGoalCard> DiscardBGCards = new ArrayList<BattleGoalCard>();
-    //Discarding function. 
-	public void Discard() {
-		DiscardedAMCards.add(new AttackModifer(String, int, int));
-		DiscardedAbilityCards.add();
-	    DiscardBGCards.add();
-	 }
-	 
-	//Lost pile
-	public void lostPile() {
-		List<AttackModifierCard> lostAMCard = new ArrayList<AttackModifierCard>();
-		List<AbilityCard> lostAbilityCardDeck = new ArrayList<AbilityCard>();
-		List<BattleGoalCard> lostBGCardDeck = new ArrayList<BattleGoalCard>();
-		lostAMCard.add();
-		lostAbilityCardDeck.add();
-		lostBGCardDeck.add();
+	public void shuffleAbilities() {
+
 	}
 
+	public void shuffleModifiers() {//turn all discarded booleans to false.
+		for(int i = 0; i < atkModCards.size(); i++) {
+			 atkModCards.get(i).setDiscarded(false);//need to add lost functionality.
+		}
+	}
+	
+	public void lostModChoice() {//when long rest, choose a discarded card to lose.
+
+	}
+	
+	public void showModDeck() {
+		System.out.println("Attack Modifier Deck:");
+		for(int i = 0; i < atkModCards.size(); i++) {
+			if(!atkModCards.get(i).isDiscarded() && !atkModCards.get(i).isLost()) {
+				atkModCards.get(i).showAttackModifierCard();
+			}
+		}
+	}
+	
+	public void showModDiscards() {
+		System.out.println("Attack Modifier Discard Pile:");
+		for(int i = 0; i < atkModCards.size(); i++) {
+			if(atkModCards.get(i).isDiscarded() && !atkModCards.get(i).isLost()) {
+				atkModCards.get(i).showAttackModifierCard();
+			}
+		}
+	}
+
+	public int getHandSize() {
+		return handSize;
+	}
 }

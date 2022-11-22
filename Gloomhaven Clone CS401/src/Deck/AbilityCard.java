@@ -9,6 +9,9 @@ public class AbilityCard {
 	private String bottomAction;//The bottom action of the card.
 	private String sepAbilities;//Separe abilities of the card. Located at the bottom.
 	
+	private boolean discarded;
+	private boolean lost;
+	
   //Constructor used to initialize the variables.
 	public AbilityCard(String N, int IN, int ln, String tA, String bA, String sA) {
 		Name = N;
@@ -33,5 +36,11 @@ public class AbilityCard {
 	    
 	}
 
-	
+	public boolean isDiscarded() {
+		return discarded;
+	}
+
+	public boolean isLost() {
+		return lost;
+	}
 }
