@@ -3,12 +3,8 @@ package Deck;
 import java.util.List;
 import java.util.ArrayList;
 public class Deck {
-	/*Pseduocode
-	 1. Declare a list of AttackModifiersCard 
-	 2. Declare a list of AbilityCards
-	 3. Declare a list of BattleGoalCards
-	 4. Declare a 
-	 */
+	 
+	
 	private List<AttackModifierCard> atkModCards = new ArrayList<AttackModifierCard>();
 	private List<AbilityCard> abilityCards = new ArrayList<AbilityCard>();
 	private List<BattleGoalCard> battleGoalCards = new ArrayList<BattleGoalCard>();
