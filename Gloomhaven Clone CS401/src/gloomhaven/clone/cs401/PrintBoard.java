@@ -9,7 +9,7 @@ public class PrintBoard {
         
         for(int i = 0; i < 32; i++){
             if(pattern == true && pattern1 == 4){
-                System.out.print("\n  ");
+                System.out.print("\n ");
                 pattern = false;
                 pattern1 = 0;
             }else if (pattern == false && pattern1 == 3){
