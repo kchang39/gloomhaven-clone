@@ -1,5 +1,5 @@
 //In this class, we will be making a class that contains the title of the card
-package Deck;
+package gloomhaven.clone.cs401;
 public class AttackModifierCard {
 	//Attack modifier cards have a symbol that denote the attack boost
 	//Print out a messsage telling the player/user how much attack boost they
@@ -33,9 +33,6 @@ public class AttackModifierCard {
 		this.discarded = x.discarded;
 		this.lost = x.lost;
 	}
-	
-	//== overload
-	
 	
 	//Displays the information on the card.
 	public void showAttackModifierCard() {

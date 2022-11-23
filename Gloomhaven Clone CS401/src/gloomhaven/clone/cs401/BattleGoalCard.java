@@ -1,4 +1,4 @@
-package Deck;
+package gloomhaven.clone.cs401;
 
 public class BattleGoalCard {
 	private int numOfCheckMarks;

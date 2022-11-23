@@ -1,4 +1,4 @@
-package Deck;
+package gloomhaven.clone.cs401;
 
 public class AbilityCard {
 	
@@ -45,39 +45,32 @@ public class AbilityCard {
 		this.lost = x.lost;
 	}
 	
-	public boolean equals(AbilityCard x) {
-		return (this.Name == x.Name && this.initNum == x.initNum && this.levelNum == x.levelNum && 
-			this.topDamage == x.topDamage && this.range == x.range && this.botMovement == x.botMovement && 
-			this.botHeal == x.botHeal && this.botShield == x.botShield && this.discarded == x.discarded && 
-			this.lost == x.lost);
-	}
-	
   //Displays all the information on the card.
-	public void showAbilityCard() {
-		System.out.print(Name + " - Initiative: " + initNum + " - Level: " + levelNum);
-		System.out.print(" Top Actions:");
+	public String toString() {
+		String temp;
+		temp = (Name + " - Initiative: " + initNum + " - Level: " + levelNum + " Top Actions:");
 		if(topDamage != 0) {
-			System.out.print(" -Attack: " + topDamage);
+			temp += " -Attack: " + topDamage;
 	    }
 		else {
-			System.out.print(" -None");
+			temp += " -None";
 		}
-		System.out.print(" Bottom Actions:");
+		temp += " Bottom Actions:";
 		if(botMovement != 0 || botHeal != 0 || botShield != 0) {
 			if(botMovement != 0) {
-				System.out.print(" -Movement: " + botMovement);
+				temp += " -Movement: " + botMovement;
 			}
 			if(botHeal != 0) {
-				System.out.print(" -Heal: " + botHeal);
+				temp += " -Heal: " + botHeal;
 			}
 			if(botShield != 0) {
-				System.out.print(" -Shield: " + botShield);
+				temp += " -Shield: " + botShield;
 			}
 		}
 		else {
-			System.out.print(" -None");
+			temp += " -None";
 		}
-		System.out.println("");
+		return temp;
 	}
 
 	public int getCardID() {

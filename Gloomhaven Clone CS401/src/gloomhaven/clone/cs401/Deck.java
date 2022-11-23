@@ -1,5 +1,5 @@
 //In this class, we will be storing cards into a deck
-package Deck;
+package gloomhaven.clone.cs401;
 
 import java.util.List;
 import java.util.Scanner;
@@ -10,7 +10,10 @@ import java.util.ArrayList;
 public class Deck {
 	private List<AttackModifierCard> atkModCards = new ArrayList<AttackModifierCard>();
 	private List<AbilityCard> abilityCards = new ArrayList<AbilityCard>();
+	private List<AbilityCard> uniqueAbilityCards = new ArrayList<AbilityCard>();
 	private List<BattleGoalCard> battleGoalCards = new ArrayList<BattleGoalCard>();
+	
+	//private List<>//Item cards
 	
 	private List<AbilityCard> hand = new ArrayList<AbilityCard>();//holds your available cards for the scenario.
 	private int handSize;
@@ -25,7 +28,6 @@ public class Deck {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 	
 	public void getAbilityCards(String filename) throws FileNotFoundException{
@@ -67,6 +69,15 @@ public class Deck {
 	
 	public void pickHand() {
 		//prints all types of cards and prompts the user to pick however many is determined by their class.
+		//int index = 1;
+		System.out.println("Select your hand of ability cards:");
+		for(int i  = 0; i < abilityCards.size(); i++) {
+			if(abilityCards.get(i).getCardID() == 1) {
+				uniqueAbilityCards.add(new AbilityCard(abilityCards.get(i)));
+			}
+		}
+		
+		
 		
 	}
 	

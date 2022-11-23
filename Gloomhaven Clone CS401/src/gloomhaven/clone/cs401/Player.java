@@ -1,7 +1,5 @@
 package gloomhaven.clone.cs401;
 
-import Deck.Deck;
-
 public class Player {
 	private String name;
 	private String job;
