@@ -30,12 +30,13 @@ public class Deck {
 	
 	public void getAbilityCards(String filename) throws FileNotFoundException{
 		String name;
-		int init, level, dmg, range, move, heal, shield;
+		int cardID, init, level, dmg, range, move, heal, shield;
 		
 		Scanner scanner = new Scanner(new File(filename + "AbilityCards.csv"));
 		scanner.useDelimiter(","); 
 		
 		while(scanner.hasNext()) {
+			cardID = scanner.nextInt();
 			name = scanner.next();
 			init = scanner.nextInt();
 			level = scanner.nextInt();
@@ -44,22 +45,23 @@ public class Deck {
 			move = scanner.nextInt();
 			heal = scanner.nextInt();
 			shield = scanner.nextInt();
-			abilityCards.add(new AbilityCard(name, init, level, dmg, range, move, heal, shield));
+			abilityCards.add(new AbilityCard(cardID, name, init, level, dmg, range, move, heal, shield));
 		}
 	}
 	
 	public void getAtkModCards() throws FileNotFoundException {
-		int mod, type;
+		int cardID, mod, type;
 		boolean timesTwo;
 		
 		Scanner scanner = new Scanner(new File("AttackModCards.csv"));
 		scanner.useDelimiter(",");
 		
 		while(scanner.hasNext()) {
+			cardID = scanner.nextInt();
 			mod = scanner.nextInt();
 			timesTwo = scanner.nextBoolean();
 			type = scanner.nextInt();
-			atkModCards.add(new AttackModifierCard(mod, timesTwo, type));
+			atkModCards.add(new AttackModifierCard(cardID, mod, timesTwo, type));
 		}
 	}
 	
@@ -105,37 +107,97 @@ public class Deck {
 	}
 	
 	public void showModDeck() {
-		System.out.println("Attack Modifier Deck:");
+		List<Integer> counter = new ArrayList<Integer>();
+		int temp = 0, index = 0;
+		
 		for(int i = 0; i < atkModCards.size(); i++) {
-			if(!atkModCards.get(i).isDiscarded() && !atkModCards.get(i).isLost()) {
+			if(temp < atkModCards.get(i).getCardID()) {
+				temp = atkModCards.get(i).getCardID();
+			}
+			else {
+				counter.add(temp);
+				temp = 0;
+			}
+		}
+		counter.add(atkModCards.get(atkModCards.size() - 1).getCardID());
+		System.out.println("\nAttack Modifier Deck:");
+		for(int i = 0; i < atkModCards.size(); i++) {
+			if(atkModCards.get(i).getCardID() == 1 && !atkModCards.get(i).isDiscarded() && !atkModCards.get(i).isLost()) {
+				System.out.print("x" + counter.get(index) + " - ");
 				atkModCards.get(i).showAttackModifierCard();
+				index++;
 			}
 		}
 	}
 	
 	public void showModDiscards() {
-		System.out.println("Attack Modifier Discard Pile:");
+		List<Integer> counter = new ArrayList<Integer>();
+		int temp = 0, index = 0;
+		
 		for(int i = 0; i < atkModCards.size(); i++) {
-			if(atkModCards.get(i).isDiscarded() && !atkModCards.get(i).isLost()) {
+			if(temp < atkModCards.get(i).getCardID()) {
+				temp = atkModCards.get(i).getCardID();
+			}
+			else {
+				counter.add(temp);
+				temp = 0;
+			}
+		}
+		counter.add(atkModCards.get(atkModCards.size() - 1).getCardID());
+		System.out.println("\nAttack Modifier Discard Pile:");
+		for(int i = 0; i < atkModCards.size(); i++) {
+			if(atkModCards.get(i).getCardID() == 1 && !atkModCards.get(i).isDiscarded() && !atkModCards.get(i).isLost()) {
+				System.out.print("x" + counter.get(index) + " - ");
 				atkModCards.get(i).showAttackModifierCard();
+				index++;
 			}
 		}
 	}
 	
 	public void showAbilityDeck() {
-		System.out.println("Ability Deck:");
+		List<Integer> counter = new ArrayList<Integer>();
+		int temp = 0, index = 0;
+		
 		for(int i = 0; i < abilityCards.size(); i++) {
-			if(!abilityCards.get(i).isDiscarded() && !abilityCards.get(i).isLost()) {
+			if(temp < abilityCards.get(i).getCardID()) {
+				temp = abilityCards.get(i).getCardID();
+			}
+			else {
+				counter.add(temp);
+				temp = 0;
+			}
+		}
+		counter.add(abilityCards.get(abilityCards.size() - 1).getCardID());
+		System.out.println("\nAbility Card Deck:");
+		for(int i = 0; i < abilityCards.size(); i++) {
+			if(abilityCards.get(i).getCardID() == 1 && !abilityCards.get(i).isDiscarded() && !abilityCards.get(i).isLost()) {
+				System.out.print("x" + counter.get(index) + " - ");
 				abilityCards.get(i).showAbilityCard();
+				index++;
 			}
 		}
 	}
 	
 	public void showAbilityDiscards() {
-		System.out.println("Ability Discard Pile:");
-		for(int i = 0; i < atkModCards.size(); i++) {
-			if(abilityCards.get(i).isDiscarded() && !abilityCards.get(i).isLost()) {
+		List<Integer> counter = new ArrayList<Integer>();
+		int temp = 0, index = 0;
+		
+		for(int i = 0; i < abilityCards.size(); i++) {
+			if(temp < abilityCards.get(i).getCardID()) {
+				temp = abilityCards.get(i).getCardID();
+			}
+			else {
+				counter.add(temp);
+				temp = 0;
+			}
+		}
+		counter.add(abilityCards.get(abilityCards.size() - 1).getCardID());
+		System.out.println("\nAbility Card Deck:");
+		for(int i = 0; i < abilityCards.size(); i++) {
+			if(abilityCards.get(i).getCardID() == 1 && abilityCards.get(i).isDiscarded() && !abilityCards.get(i).isLost()) {
+				System.out.print("x" + counter.get(index) + " - ");
 				abilityCards.get(i).showAbilityCard();
+				index++;
 			}
 		}
 	}

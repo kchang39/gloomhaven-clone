@@ -4,7 +4,7 @@ public class AttackModifierCard {
 	//Attack modifier cards have a symbol that denote the attack boost
 	//Print out a messsage telling the player/user how much attack boost they
 	
-	
+	private int cardID;
 	//private String Title;//The title of the attack modifier card.
 	private int AttackBoost;//The attack boost symbol that is used to determine how much the attack is boosted.
 	private boolean timesTwo;//The attack damage is doubled.
@@ -15,7 +15,8 @@ public class AttackModifierCard {
 	private boolean lost;
 	
 	//Constructor for AttackModifierCard class used to initialize variables.
-	public AttackModifierCard(int a, boolean timesTwo, int ty) {
+	public AttackModifierCard(int ID, int a, boolean timesTwo, int ty) {
+		cardID = ID;
 		//Title = t;
 		AttackBoost = a;
 		this.timesTwo = timesTwo;
@@ -23,6 +24,18 @@ public class AttackModifierCard {
 		this.discarded = false;
 		this.lost = false;
 	}
+	
+	//copy constructor
+	public AttackModifierCard(AttackModifierCard x) {
+		this.AttackBoost = x.AttackBoost;
+		this.timesTwo = x.timesTwo;
+		this.Type = x.Type;
+		this.discarded = x.discarded;
+		this.lost = x.lost;
+	}
+	
+	//== overload
+	
 	
 	//Displays the information on the card.
 	public void showAttackModifierCard() {
@@ -39,6 +52,9 @@ public class AttackModifierCard {
 		}
 	}
 	
+	public int getCardID() {
+		return cardID;
+	}
 	public int getAtkMod() {
 		return AttackBoost;
 	}
