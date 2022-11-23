@@ -15,35 +15,57 @@ public class Deck {
 	private List<AbilityCard> hand = new ArrayList<AbilityCard>();//holds your available cards for the scenario.
 	private int handSize;
 	
-	public Deck(int handSize, String filename) throws FileNotFoundException{
+	public Deck(int handSize, String filename) {
 		this.handSize = handSize;
 		//fill card lists from files. Unique files for each card type.
-		getAbilityCards(filename);
+		try {
+			getAbilityCards(filename);
+			getAtkModCards();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
-	public void getAbilityCards(String filename) throws FileNotFoundException {
+	public void getAbilityCards(String filename) throws FileNotFoundException{
+		String name;
+		int init, level, dmg, range, move, heal, shield;
+		
 		Scanner scanner = new Scanner(new File(filename + "AbilityCards.csv"));
 		scanner.useDelimiter(","); 
 		
 		while(scanner.hasNext()) {
-			
-			
+			name = scanner.next();
+			init = scanner.nextInt();
+			level = scanner.nextInt();
+			dmg = scanner.nextInt();
+			range = scanner.nextInt();
+			move = scanner.nextInt();
+			heal = scanner.nextInt();
+			shield = scanner.nextInt();
+			abilityCards.add(new AbilityCard(name, init, level, dmg, range, move, heal, shield));
 		}
 	}
 	
-	public void getAbilityCards() throws FileNotFoundException {
-		Scanner scanner = new Scanner(new File("AttackModifierCards.csv"));
+	public void getAtkModCards() throws FileNotFoundException {
+		int mod, type;
+		boolean timesTwo;
+		
+		Scanner scanner = new Scanner(new File("AttackModCards.csv"));
 		scanner.useDelimiter(",");
 		
 		while(scanner.hasNext()) {
-			
-			
+			mod = scanner.nextInt();
+			timesTwo = scanner.nextBoolean();
+			type = scanner.nextInt();
+			atkModCards.add(new AttackModifierCard(mod, timesTwo, type));
 		}
 	}
 	
 	public void pickHand() {
 		//prints all types of cards and prompts the user to pick however many is determined by their class.
+		
 	}
 	
 	public int DrawAttackMod(int dmg) {

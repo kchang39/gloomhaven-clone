@@ -9,19 +9,19 @@ public class AttackModifierCard {
 	private int AttackBoost;//The attack boost symbol that is used to determine how much the attack is boosted.
 	private boolean timesTwo;//The attack damage is doubled.
 	//needs boolean for null mod.
-	private int Type;//The 
+	private int Type;//not yet implimented.
 	
 	private boolean discarded;
 	private boolean lost;
 	
 	//Constructor for AttackModifierCard class used to initialize variables.
-	public AttackModifierCard(int a, boolean timesTwo, int ty, boolean discarded, boolean lost) {
+	public AttackModifierCard(int a, boolean timesTwo, int ty) {
 		//Title = t;
 		AttackBoost = a;
 		this.timesTwo = timesTwo;
 		Type = ty;
-		this.discarded = discarded;
-		this.lost = lost;
+		this.discarded = false;
+		this.lost = false;
 	}
 	
 	//Displays the information on the card.
@@ -42,23 +42,18 @@ public class AttackModifierCard {
 	public int getAtkMod() {
 		return AttackBoost;
 	}
-
 	public boolean isTimesTwo() {
 		return timesTwo;
 	}
-
 	public boolean isDiscarded() {
 		return discarded;
 	}
-	
 	public void setDiscarded(boolean x) {
 		this.discarded = x;
 	}
-
 	public boolean isLost() {
 		return lost;
 	}
-	
 	public void setLost(boolean x) {
 		this.lost = x;
 	}

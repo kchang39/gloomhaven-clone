@@ -33,17 +33,28 @@ public class AbilityCard {
   //Displays all the information on the card.
 	public void showAbilityCard() {
 		System.out.println(Name + " - Initiative: " + initNum + " - Level: " + levelNum);
-		System.out.println("Top Actions: ");
+		System.out.println("\tTop Actions: ");
 		if(topDamage != 0) {
-			System.out.println("Attack - " + topDamage);
+			System.out.println("\t-Attack: " + topDamage);
 	    }
-		System.out.println("Bottom Actions: ");
-		if(botMovement != 0) {
-			System.out.println("Movement - " + botMovement);
-	    }
-		if(botHeal != 0) {
-			System.out.println("Heal - " + botHeal);
-	    }
+		else {
+			System.out.println("\t-None");
+		}
+		System.out.println("\tBottom Actions: ");
+		if(botMovement != 0 || botHeal != 0 || botShield != 0) {
+			if(botMovement != 0) {
+				System.out.println("\t-Movement: " + botMovement);
+			}
+			if(botHeal != 0) {
+				System.out.println("\t-Heal: " + botHeal);
+			}
+			if(botShield != 0) {
+				System.out.println("\t-Shield: " + botShield);
+			}
+		}
+		else {
+			System.out.println("\t-None");
+		}
 	}
 
 	public boolean isDiscarded() {

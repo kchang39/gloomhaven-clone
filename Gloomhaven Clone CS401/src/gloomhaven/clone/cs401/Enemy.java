@@ -48,7 +48,9 @@ public class Enemy {
 	}
 	
 	void fullHeal() {
-		currentHP = maxHP;
+		if(alive) {
+			currentHP = maxHP;
+		}
 	}
 	
 	void addShield(int x) {
@@ -62,11 +64,9 @@ public class Enemy {
 	public String getName() {
 		return name;
 	}
-
 	public int getLevel() {
 		return level;
 	}
-
 	public String getRarity() {
 		if(rarity == 1)
 			return "Normal";
@@ -76,31 +76,24 @@ public class Enemy {
 			return "Boss";
 		return "";//placeholder return.
 	}
-	
 	public int getMaxHP() {
 		return maxHP;
 	}
-
 	public int getCurrentHP() {
 		return currentHP;
 	}
-	
 	public int getShield() {
 		return shield;
 	}
-
 	public int getMovement() {
 		return movement;
 	}
-
 	public int getAttack() {
 		return attack;
 	}
-
 	public int getRange() {
 		return range;
 	}
-
 	public boolean isAlive() {
 		return alive;
 	}

@@ -16,6 +16,12 @@ public class GloomhavenCloneCS401 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+    	Player testPlayer = new Player("Jimmy Jam", 2);
+    	
+    	testPlayer.printPlayer();
+    	testPlayer.getDeck().showAbilityDeck();
+    	testPlayer.getDeck().showModDeck();
+    	
     }
     
 }

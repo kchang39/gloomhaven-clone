@@ -26,28 +26,34 @@ public class Player {
 		levelUpPoint = 45;
 		gold = 0;
 		shield = 0;
+		int handSize = 0;
 		
 		//Hard coded jobs.
 		if(newJob == 1) {//Scoundrel, hand = 9
 			job = "Scoundrel";
 			maxHP = 8;
 			currentHP = maxHP;
+			handSize = 9;
 		}
 		else if(newJob == 2) {//Brute, hand = 10
 			job = "Brute";
 			maxHP = 10;
 			currentHP = maxHP;
+			handSize = 10;
 		}
 		else if(newJob == 3) {//Spellweaver, hand = 8 + reviving ether
 			job = "Spellweaver";
 			maxHP = 6;
 			currentHP = maxHP;
+			handSize = 8;
 		}
 		else if(newJob == 4) {//Tinkerer, hand = 12
 			job = "Tinkerer";
 			maxHP = 8;
 			currentHP = maxHP;
+			handSize = 12;
 		}
+		deck = new Deck(handSize, job);
 	}
 	
 	void AddExp(int x){//MUST be in town to level-up.
@@ -94,7 +100,9 @@ public class Player {
 	}
 	
 	void fullHeal() {
-		currentHP = maxHP;
+		if(alive) {
+			currentHP = maxHP;
+		}
 	}
 	
 	void addShield(int x) {
@@ -117,6 +125,7 @@ public class Player {
 		System.out.println(this.name + "(Lvl:" + level + " - " + job + "): " + "HP(" + currentHP + "/" + maxHP + ")");
 	}
 
+	
 	public String getName() {
 		return name;
 	}
@@ -143,5 +152,8 @@ public class Player {
 	}
 	public int getShield() {
 		return shield;
+	}
+	public Deck getDeck() {
+		return deck;
 	}
 }
