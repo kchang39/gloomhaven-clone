@@ -107,21 +107,19 @@ public class Player {
 		shield += x;
 	}
 	
-	void shortRest() {//lose 1 discarded card, shuffle discard piles into main deck
+	void shortRest() {//lose 1 random discarded card, shuffle discard piles into main deck
+		deck.loseRandom();
 		deck.shuffleHand();
 		deck.shuffleModifiers();
-		//deck.lose();
 	}
 	
-	void longRest() {
+	void longRest() {//lose 1 chosen discarded card, shuffle discard piles into main deck
+		deck.loseChoice();
 		deck.shuffleHand();
 		deck.shuffleModifiers();
-		//deck.lose();
 		//deck.refreshItems();
 		healDmg(2);
 	}
-	
-	
 	
 	public void printPlayer() {
 		System.out.println(this.name + "(Lvl:" + level + " - " + job + "): " + "HP(" + currentHP + "/" + maxHP + ")");

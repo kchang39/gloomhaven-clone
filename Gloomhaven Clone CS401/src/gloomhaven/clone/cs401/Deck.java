@@ -96,13 +96,23 @@ public class Deck {
 		showHand();
 	}
 	
-	public int DrawAttackMod(int dmg) {
-		int index = (int)(Math.random() * (atkModCards.size()));
-		 
-		if(atkModCards.get(index).isDiscarded() || atkModCards.get(index).isLost()) {
-			index = (int)(Math.random() * (atkModCards.size()));
+	public int drawAttackMod(int dmg) {
+		int index, count = 0;
+		for(int i = 0; i < atkModCards.size(); i++) {
+			if(!atkModCards.get(i).isDiscarded() && !atkModCards.get(i).isLost()) {
+				count++;
+			}
 		}
-		 
+		if(count == 0) {
+			shuffleModifiers();
+		}
+		
+		do {
+			index = (int)(Math.random() * (atkModCards.size()));
+		}while(atkModCards.get(index).isDiscarded() || atkModCards.get(index).isLost());
+			
+		atkModCards.get(index).setDiscarded(true); 
+		
 		//Check for x2 modifier.
 		if(atkModCards.get(index).isTimesTwo()) {
 			return dmg;
@@ -111,13 +121,18 @@ public class Deck {
 		return atkModCards.get(index).getAtkMod();//should range from +2 through -2.
 	}
 	 
-	public void DrawBattleGoal() {//WIP
+	public void drawBattleGoal() {//WIP
 		 
 		battleGoalCards.get(0);
 	}
 	 
 	public AbilityCard getHand(int x) {//should this be here or in player class?
 		//needs check for if card is discarded or lost
+		Scanner input = new Scanner(System.in);
+		while(hand.get(x).isDiscarded() || hand.get(x).isLost()) {
+			System.out.print("Error: That card is either discarded or lost. Choose another card: ");
+			x = input.nextInt();
+		}
 		hand.get(x).setDiscarded(true);
 		return hand.get(x);
 		
@@ -125,29 +140,66 @@ public class Deck {
 	
 	public void shuffleHand() {//turn all discarded boolean variables to false.
 		for(int i = 0; i < hand.size(); i++) {
-			
-		}
-		for(int i = 0; i < hand.size(); i++) {
-			hand.get(i).setDiscarded(false);//need to add lost functionality.
+			hand.get(i).setDiscarded(false);
 		}
 	}
 
 	public void shuffleModifiers() {//turn all discarded boolean variables to false.
 		for(int i = 0; i < atkModCards.size(); i++) {
-			atkModCards.get(i).setDiscarded(false);//need to add lost functionality.
+			atkModCards.get(i).setDiscarded(false);
 		}
 	}
 	
-	public void lostModChoice() {//when long rest, choose a discarded card to lose.
-
+	public void loseRandom() {
+		int index;
+		do {
+			index = (int)(Math.random() * (hand.size()));
+		}while(!hand.get(index).isDiscarded() || hand.get(index).isLost());//while hand(index) is not discarded and is not lost
+		hand.get(index).setDiscarded(false);
+		hand.get(index).setLost(true);
+	}
+	
+	public void loseChoice() {//when long rest, choose a discarded card to lose.
+		Scanner scanner = new Scanner(System.in);
+		int index;
+		do {
+			System.out.print("\nChoose 1 discarded card to lose:");
+			index = scanner.nextInt();
+			if(!hand.get(index).isDiscarded() || hand.get(index).isLost()) {
+				System.out.println("Error: Chosen card is not in discard pile or is already lost.Please choose another.");
+			}
+		}while(!hand.get(index).isDiscarded() || hand.get(index).isLost());//while hand(index) is not discarded and is not lost
+		
+		hand.get(index).setDiscarded(false);
+		hand.get(index).setLost(true);
 	}
 	
 	public void showModDeck() {
-
+		int counter = 0;
+		System.out.println("\nAttack Modifier Deck:");
+		for(int i = 0; i < atkModCards.size(); i++) {
+			if(!atkModCards.get(i).isDiscarded() && !atkModCards.get(i).isLost()) {
+				System.out.println("(" + i + ")" + atkModCards.get(i).toString());
+				counter++;
+			}
+		}
+		if(counter == 0) {
+			System.out.println("Empty.");
+		}
 	}
 	
 	public void showModDiscards() {
-	
+		int counter = 0;
+		System.out.println("\nAttack Modifier Discard Pile:");
+		for(int i = 0; i < atkModCards.size(); i++) {
+			if(atkModCards.get(i).isDiscarded() && !atkModCards.get(i).isLost()) {
+				System.out.println("(" + i + ")" + atkModCards.get(i).toString());
+				counter++;
+			}
+		}
+		if(counter == 0) {
+			System.out.println("Empty.");
+		}
 	}
 	
 	public void showAbilityDeck() {
@@ -158,26 +210,64 @@ public class Deck {
 	}
 	
 	public void showHand() {
+		int counter = 0;
 		System.out.println("\nHand:");
 		for(int i = 0; i < hand.size(); i++) {
 			if(!hand.get(i).isDiscarded() && !hand.get(i).isLost()) {
-				System.out.print("(" + i + ")");
-				System.out.println(hand.get(i).toString());
+				System.out.println("(" + i + ")" + hand.get(i).toString());
+				counter++;
 			}
+		}
+		if(counter == 0) {
+			System.out.println("Empty.");
 		}
 	}
 	
-	public void showDiscards() {
+	public void showHandDiscards() {
+		int counter = 0;
 		System.out.println("\nDiscard Pile:");
 		for(int i = 0; i < hand.size(); i++) {
 			if(hand.get(i).isDiscarded() && !hand.get(i).isLost()) {
-				System.out.print("(" + i + ")");
-				System.out.println(hand.get(i).toString());
+				System.out.println("(" + i + ")" + hand.get(i).toString());
+				counter++;
 			}
+		}
+		if(counter == 0) {
+			System.out.println("Empty.");
 		}
 	}
 
+	public void showHandLost() {
+		int counter = 0;
+		System.out.println("\nLost Pile:");
+		for(int i = 0; i < hand.size(); i++) {
+			if(!hand.get(i).isDiscarded() && hand.get(i).isLost()) {
+				System.out.println("(" + i + ")" + hand.get(i).toString());
+				counter++;
+			}
+		}
+		if(counter == 0) {
+			System.out.println("Empty.");
+		}
+	}
+	
+	public void resetDeck() {//for end of senario.
+		hand.clear();
+		shuffleModifiers();
+		
+	}
+	
 	public int getHandSize() {
 		return handSize;
+	}
+
+	public int getActiveHand() {
+		int counter = 0;
+		for(int i = 0; i < hand.size(); i++) {
+			if(!hand.get(i).isDiscarded() && !hand.get(i).isLost()) {
+				counter++;
+			}
+		}
+		return counter;
 	}
 }
