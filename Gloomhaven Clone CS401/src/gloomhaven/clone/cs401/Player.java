@@ -108,16 +108,20 @@ public class Player {
 	}
 	
 	void shortRest() {//lose 1 discarded card, shuffle discard piles into main deck
-		//deck.shuffle();
+		deck.shuffleHand();
+		deck.shuffleModifiers();
 		//deck.lose();
 	}
 	
 	void longRest() {
-		//deck.shuffle();
+		deck.shuffleHand();
+		deck.shuffleModifiers();
 		//deck.lose();
 		//deck.refreshItems();
 		healDmg(2);
 	}
+	
+	
 	
 	public void printPlayer() {
 		System.out.println(this.name + "(Lvl:" + level + " - " + job + "): " + "HP(" + currentHP + "/" + maxHP + ")");

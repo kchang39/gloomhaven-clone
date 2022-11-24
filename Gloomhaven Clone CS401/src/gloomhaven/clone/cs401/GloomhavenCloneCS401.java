@@ -22,7 +22,13 @@ public class GloomhavenCloneCS401 {
     	test.getDeck().showAbilityDeck();
     	test.getDeck().pickHand();
     	
+    	AbilityCard card;
+    	card = test.getDeck().getHand(0);
     	
+    	card = test.getDeck().getHand(6);
+    	
+    	
+    	test.getDeck().showHand();
     	test.getDeck().showDiscards();
     }
     

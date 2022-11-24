@@ -116,16 +116,19 @@ public class Deck {
 		battleGoalCards.get(0);
 	}
 	 
-	public void playHand() {//should this be here or in player class?
-		System.out.println("Choose a card for the top effect:");
-		showHand();
-		
+	public AbilityCard getHand(int x) {//should this be here or in player class?
+		//needs check for if card is discarded or lost
+		hand.get(x).setDiscarded(true);
+		return hand.get(x);
 		
 	}
 	
-	public void shuffleAbilities() {//turn all discarded boolean variables to false.
-		for(int i = 0; i < abilityCards.size(); i++) {
-			abilityCards.get(i).setDiscarded(false);//need to add lost functionality.
+	public void shuffleHand() {//turn all discarded boolean variables to false.
+		for(int i = 0; i < hand.size(); i++) {
+			
+		}
+		for(int i = 0; i < hand.size(); i++) {
+			hand.get(i).setDiscarded(false);//need to add lost functionality.
 		}
 	}
 
@@ -168,6 +171,7 @@ public class Deck {
 		System.out.println("\nDiscard Pile:");
 		for(int i = 0; i < hand.size(); i++) {
 			if(hand.get(i).isDiscarded() && !hand.get(i).isLost()) {
+				System.out.print("(" + i + ")");
 				System.out.println(hand.get(i).toString());
 			}
 		}
