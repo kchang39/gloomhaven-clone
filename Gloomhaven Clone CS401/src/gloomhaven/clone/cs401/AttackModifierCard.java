@@ -4,7 +4,7 @@ public class AttackModifierCard {
 	//Attack modifier cards have a symbol that denote the attack boost
 	//Print out a messsage telling the player/user how much attack boost they
 	
-	private int cardID;
+	private int quantity;
 	//private String Title;//The title of the attack modifier card.
 	private int AttackBoost;//The attack boost symbol that is used to determine how much the attack is boosted.
 	private boolean timesTwo;//The attack damage is doubled.
@@ -15,8 +15,8 @@ public class AttackModifierCard {
 	private boolean lost;
 	
 	//Constructor for AttackModifierCard class used to initialize variables.
-	public AttackModifierCard(int ID, int a, boolean timesTwo, int ty) {
-		cardID = ID;
+	public AttackModifierCard(int quant, int a, boolean timesTwo, int ty) {
+		quantity = quant;
 		//Title = t;
 		AttackBoost = a;
 		this.timesTwo = timesTwo;
@@ -35,22 +35,27 @@ public class AttackModifierCard {
 	}
 	
 	//Displays the information on the card.
-	public void showAttackModifierCard() {
+	public String toString() {
+		String temp = "";
 		if(timesTwo) {
-			System.out.println("Attack Modifier: x2 - Card type symbol:" + Type);
+			temp = "Attack Modifier: x2 - Card type symbol:" + Type;
 		}
 		else {
 			if(AttackBoost >= 0) {
-				System.out.println("Attack Modifier: +" + AttackBoost + " - Card type symbol:" + Type);
+				temp += "Attack Modifier: +" + AttackBoost + " - Card type symbol:" + Type;
 			}
 			else {
-				System.out.println("Attack Modifier: " + AttackBoost + " - Card type symbol:" + Type);
+				temp += "Attack Modifier: " + AttackBoost + " - Card type symbol:" + Type;
 			}
 		}
+		return temp;
 	}
 	
-	public int getCardID() {
-		return cardID;
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int x) {
+		this.quantity = x;
 	}
 	public int getAtkMod() {
 		return AttackBoost;

@@ -2,7 +2,7 @@ package gloomhaven.clone.cs401;
 
 public class AbilityCard {
 	
-	private int cardID;
+	private int quantity;
 	private String Name;//Name of the attack
 	private int initNum;//Initializer number.
 	private int levelNum;//The level of the attack card.
@@ -18,13 +18,13 @@ public class AbilityCard {
 	private boolean lost;
 	
   //Constructor used to initialize the variables.
-	public AbilityCard(int ID, String N, int IN, int ln, int tD, int r, int bM, int bH, int bS) {
-		cardID = ID;
+	public AbilityCard(int quant, String N, int IN, int ln, int tD, int bM, int bH, int bS) {
+		quantity = quant;
 		Name = N;
 		initNum = IN;
 		levelNum = ln;
 		topDamage = tD;
-		range = r;
+		range = 1;//For now default range is 1
 		botMovement = bM;
 		botHeal = bH;
 		botShield = bS;
@@ -33,6 +33,7 @@ public class AbilityCard {
 	}
 	//Copy Constructor
 	public AbilityCard(AbilityCard x) {
+		this.quantity = x.quantity;
 		this.Name = x.Name;
 		this.initNum = x.initNum;
 		this.levelNum = x.levelNum;
@@ -45,17 +46,33 @@ public class AbilityCard {
 		this.lost = x.lost;
 	}
 	
+	//Equals comparison
+	public boolean equals(AbilityCard x) {
+		boolean result;
+		result = (Name == x.Name && 
+				initNum == x.initNum && 
+				levelNum == x.levelNum && 
+				topDamage == x.topDamage && 
+				range == x.range && 
+				botMovement == x.botMovement && 
+				botHeal == x.botHeal && 
+				botShield == x.botShield && 
+				discarded == x.discarded && 
+				lost == x.lost);
+		return result;
+	}
+	
   //Displays all the information on the card.
 	public String toString() {
 		String temp;
-		temp = (Name + " - Initiative: " + initNum + " - Level: " + levelNum + " Top Actions:");
+		temp = (Name + " - Initiative: " + initNum + " - Level: " + levelNum + "| Top Actions:");
 		if(topDamage != 0) {
 			temp += " -Attack: " + topDamage;
 	    }
 		else {
 			temp += " -None";
 		}
-		temp += " Bottom Actions:";
+		temp += "| Bottom Actions:";
 		if(botMovement != 0 || botHeal != 0 || botShield != 0) {
 			if(botMovement != 0) {
 				temp += " -Movement: " + botMovement;
@@ -73,8 +90,11 @@ public class AbilityCard {
 		return temp;
 	}
 
-	public int getCardID() {
-		return cardID;
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int x) {
+		this.quantity = x;
 	}
 	public String getName() {
 		return Name;

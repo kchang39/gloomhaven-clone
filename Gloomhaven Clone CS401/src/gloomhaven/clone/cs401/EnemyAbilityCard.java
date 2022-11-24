@@ -2,14 +2,16 @@ package gloomhaven.clone.cs401;
 
 public class EnemyAbilityCard {
 	private int attack;
+	private int range;
 	private int movement;
 	private int shield;
 	private int heal;
 	private int initiative;
 	private boolean reshuffle;
 	
-	EnemyAbilityCard(int attack, int movement, int shield, int heal, int initiative, boolean reshuffle){
+	EnemyAbilityCard(int attack, int range, int movement, int shield, int heal, int initiative, boolean reshuffle){
 		this.attack = attack;
+		this.range = range;
 		this.movement = movement;
 		this.shield = shield;
 		this.heal = heal;
@@ -39,5 +41,9 @@ public class EnemyAbilityCard {
 
 	public int getHeal() {
 		return heal;
+	}
+
+	public int getRange() {
+		return range;
 	}
 }

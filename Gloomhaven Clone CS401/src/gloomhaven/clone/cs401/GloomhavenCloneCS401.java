@@ -18,7 +18,12 @@ public class GloomhavenCloneCS401 {
         // TODO code application logic here
     	Player test = new Player("Jimmy", 1);
     	
+    	test.printPlayer();
     	test.getDeck().showAbilityDeck();
+    	test.getDeck().pickHand();
+    	
+    	
+    	test.getDeck().showDiscards();
     }
     
 }

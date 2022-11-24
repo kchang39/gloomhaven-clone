@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class Deck {
 	private List<AttackModifierCard> atkModCards = new ArrayList<AttackModifierCard>();
 	private List<AbilityCard> abilityCards = new ArrayList<AbilityCard>();
-	private List<AbilityCard> uniqueAbilityCards = new ArrayList<AbilityCard>();
 	private List<BattleGoalCard> battleGoalCards = new ArrayList<BattleGoalCard>();
 	
 	//private List<>//Item cards
@@ -25,60 +24,76 @@ public class Deck {
 			getAbilityCards(filename);
 			getAtkModCards();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
 	public void getAbilityCards(String filename) throws FileNotFoundException{
 		String name;
-		int cardID, init, level, dmg, range, move, heal, shield;
+		int quantity, init, level, dmg, move, heal, shield;
 		
 		Scanner scanner = new Scanner(new File(filename + "AbilityCards.csv"));
 		scanner.useDelimiter(","); 
 		
 		while(scanner.hasNext()) {
-			cardID = scanner.nextInt();
+			quantity = scanner.nextInt();
 			name = scanner.next();
 			init = scanner.nextInt();
 			level = scanner.nextInt();
 			dmg = scanner.nextInt();
-			range = scanner.nextInt();
 			move = scanner.nextInt();
 			heal = scanner.nextInt();
 			shield = scanner.nextInt();
-			abilityCards.add(new AbilityCard(cardID, name, init, level, dmg, range, move, heal, shield));
+			abilityCards.add(new AbilityCard(quantity, name, init, level, dmg, move, heal, shield));
 		}
 	}
 	
 	public void getAtkModCards() throws FileNotFoundException {
-		int cardID, mod, type;
+		int quantity, mod, type;
 		boolean timesTwo;
 		
 		Scanner scanner = new Scanner(new File("AttackModCards.csv"));
 		scanner.useDelimiter(",");
 		
 		while(scanner.hasNext()) {
-			cardID = scanner.nextInt();
+			quantity = scanner.nextInt();
 			mod = scanner.nextInt();
 			timesTwo = scanner.nextBoolean();
 			type = scanner.nextInt();
-			atkModCards.add(new AttackModifierCard(cardID, mod, timesTwo, type));
+			atkModCards.add(new AttackModifierCard(quantity, mod, timesTwo, type));
 		}
 	}
 	
 	public void pickHand() {
-		//prints all types of cards and prompts the user to pick however many is determined by their class.
-		//int index = 1;
-		System.out.println("Select your hand of ability cards:");
-		for(int i  = 0; i < abilityCards.size(); i++) {
-			if(abilityCards.get(i).getCardID() == 1) {
-				uniqueAbilityCards.add(new AbilityCard(abilityCards.get(i)));
+		Scanner input = new Scanner(System.in);
+		int totalHand = 0, temp;
+		System.out.print("\nSelect " + handSize + " cards to fill your hand:");
+		showAbilityDeck();
+		do {
+			for(int i = 0; i < abilityCards.size(); i++) {
+				do {
+					System.out.println("\n[x" + abilityCards.get(i).getQuantity() + " - " + abilityCards.get(i).toString() + "]");
+					System.out.print("How many of the above cards do you want in your hand: ");
+					temp = input.nextInt();
+					if(temp > abilityCards.get(i).getQuantity() || totalHand + temp > handSize || temp < 0) {
+						System.out.println("Error: Not enough of that card or your hand would be full. Please try again.\n");
+					}
+				}while(temp > abilityCards.get(i).getQuantity() || totalHand + temp > handSize || temp < 0);
+				//adding the cards to hand list.
+				for(int a = 0; a < temp; a++) {
+					hand.add(new AbilityCard(abilityCards.get(i)));
+					hand.get(hand.size() - 1).setQuantity(temp);
+				}
+				totalHand += temp;
+				System.out.println(handSize - totalHand + " cards left.");
 			}
-		}
-		
-		
-		
+			if(totalHand < handSize) {
+				System.out.print("\nNot enough cards were chosen. Pick again.\n");
+				hand.clear();
+				totalHand = 0;
+			}
+		}while(totalHand < handSize);
+		showHand();
 	}
 	
 	public int DrawAttackMod(int dmg) {
@@ -101,6 +116,13 @@ public class Deck {
 		battleGoalCards.get(0);
 	}
 	 
+	public void playHand() {//should this be here or in player class?
+		System.out.println("Choose a card for the top effect:");
+		showHand();
+		
+		
+	}
+	
 	public void shuffleAbilities() {//turn all discarded boolean variables to false.
 		for(int i = 0; i < abilityCards.size(); i++) {
 			abilityCards.get(i).setDiscarded(false);//need to add lost functionality.
@@ -118,97 +140,35 @@ public class Deck {
 	}
 	
 	public void showModDeck() {
-		List<Integer> counter = new ArrayList<Integer>();
-		int temp = 0, index = 0;
-		
-		for(int i = 0; i < atkModCards.size(); i++) {
-			if(temp < atkModCards.get(i).getCardID()) {
-				temp = atkModCards.get(i).getCardID();
-			}
-			else {
-				counter.add(temp);
-				temp = 0;
-			}
-		}
-		counter.add(atkModCards.get(atkModCards.size() - 1).getCardID());
-		System.out.println("\nAttack Modifier Deck:");
-		for(int i = 0; i < atkModCards.size(); i++) {
-			if(atkModCards.get(i).getCardID() == 1 && !atkModCards.get(i).isDiscarded() && !atkModCards.get(i).isLost()) {
-				System.out.print("x" + counter.get(index) + " - ");
-				atkModCards.get(i).showAttackModifierCard();
-				index++;
-			}
-		}
+
 	}
 	
 	public void showModDiscards() {
-		List<Integer> counter = new ArrayList<Integer>();
-		int temp = 0, index = 0;
-		
-		for(int i = 0; i < atkModCards.size(); i++) {
-			if(temp < atkModCards.get(i).getCardID()) {
-				temp = atkModCards.get(i).getCardID();
-			}
-			else {
-				counter.add(temp);
-				temp = 0;
-			}
-		}
-		counter.add(atkModCards.get(atkModCards.size() - 1).getCardID());
-		System.out.println("\nAttack Modifier Discard Pile:");
-		for(int i = 0; i < atkModCards.size(); i++) {
-			if(atkModCards.get(i).getCardID() == 1 && !atkModCards.get(i).isDiscarded() && !atkModCards.get(i).isLost()) {
-				System.out.print("x" + counter.get(index) + " - ");
-				atkModCards.get(i).showAttackModifierCard();
-				index++;
-			}
-		}
+	
 	}
 	
 	public void showAbilityDeck() {
-		List<Integer> counter = new ArrayList<Integer>();
-		int temp = 0, index = 0;
-		
-		for(int i = 0; i < abilityCards.size(); i++) {
-			if(temp < abilityCards.get(i).getCardID()) {
-				temp = abilityCards.get(i).getCardID();
-			}
-			else {
-				counter.add(temp);
-				temp = 0;
-			}
-		}
-		counter.add(abilityCards.get(abilityCards.size() - 1).getCardID());
 		System.out.println("\nAbility Card Deck:");
 		for(int i = 0; i < abilityCards.size(); i++) {
-			if(abilityCards.get(i).getCardID() == 1 && !abilityCards.get(i).isDiscarded() && !abilityCards.get(i).isLost()) {
-				System.out.print("x" + counter.get(index) + " - ");
-				abilityCards.get(i).showAbilityCard();
-				index++;
+			System.out.println("x" + abilityCards.get(i).getQuantity() + " - " + abilityCards.get(i).toString());
+		}
+	}
+	
+	public void showHand() {
+		System.out.println("\nHand:");
+		for(int i = 0; i < hand.size(); i++) {
+			if(!hand.get(i).isDiscarded() && !hand.get(i).isLost()) {
+				System.out.print("(" + i + ")");
+				System.out.println(hand.get(i).toString());
 			}
 		}
 	}
 	
-	public void showAbilityDiscards() {
-		List<Integer> counter = new ArrayList<Integer>();
-		int temp = 0, index = 0;
-		
-		for(int i = 0; i < abilityCards.size(); i++) {
-			if(temp < abilityCards.get(i).getCardID()) {
-				temp = abilityCards.get(i).getCardID();
-			}
-			else {
-				counter.add(temp);
-				temp = 0;
-			}
-		}
-		counter.add(abilityCards.get(abilityCards.size() - 1).getCardID());
-		System.out.println("\nAbility Card Deck:");
-		for(int i = 0; i < abilityCards.size(); i++) {
-			if(abilityCards.get(i).getCardID() == 1 && abilityCards.get(i).isDiscarded() && !abilityCards.get(i).isLost()) {
-				System.out.print("x" + counter.get(index) + " - ");
-				abilityCards.get(i).showAbilityCard();
-				index++;
+	public void showDiscards() {
+		System.out.println("\nDiscard Pile:");
+		for(int i = 0; i < hand.size(); i++) {
+			if(hand.get(i).isDiscarded() && !hand.get(i).isLost()) {
+				System.out.println(hand.get(i).toString());
 			}
 		}
 	}
