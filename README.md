@@ -19,7 +19,7 @@ Aaron: As a player, I want to be able to actually do things. Having the enemies 
 
 Kevin: As a player, I want somewhere to buy items that can improve my combat ability.
 
-Carter: As a player, I want to be able to play a a unique character so that I can be different from the other players.
+Carter: As a player, I want to be able to play a a unique character so that I can be different from the other players. As a player I want to play co-op with my friends in a party.
 
 Kamaljeet: As a player, I want to be the difficulty of this game to be fairly challenging so that I am entertained.
 
