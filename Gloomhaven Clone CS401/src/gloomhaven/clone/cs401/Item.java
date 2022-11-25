@@ -78,8 +78,13 @@ public class Item {
         this.isConsumed = true;
     }
 
-    //spendds the item, can be refreshed during long rest
+    //spends the item, can be refreshed during long rest
     public void spendItem() {
         this.isSpent = true;
+    }
+
+    //checks if two items are equal
+    public boolean isEqual(Item item) {
+        return this.name == item.getName();
     }
 }
