@@ -1,20 +1,27 @@
 package gloomhaven.clone.cs401;
 
+//to begin with, 2 types of items, one that adds damage, one that adds health
 public class Item {
     int goldCost;   //gold cost of the item
     String name;    //name of the item
-    String equipSlot;   //equip slot of the item (head/body/legs/onehand/twohands/small item)
+    String equipSlot;   //equip slot of the item (head/body/legs/onehand/twohands/small item) (small item slot: can equip up to number equal to half their level)
+    int useSlots;       //number of times the item can be used before consumed/spent
     boolean isConsumable;   //is consumed after use
     boolean isSpendable;    //is spent after use and can be refreshed when a character performs a long rest
     boolean isConsumed;     //is item consumed
     boolean isSpent;         //is item spent
 
-    String description;     //the effect of the item
+    String description;     //the effect of the item, will either have keyword 'attack' or 'health'+
+    int damageModifier;     //changes damage of player
+    int healthModifier;     //changes health of player
+
     
     // default contructor
     public Item() {
 
     }
+
+    //will need to create a constructor to create a specific item possibly???
 
 
     //start of getters and setters
@@ -36,6 +43,12 @@ public class Item {
     public void setEquipSlot(String equipSlot) {
         this.equipSlot = equipSlot;
     }
+    public int getUseSlots() {
+        return useSlots;
+    }
+    public void setUseSlots(int useSlots) {
+        this.useSlots = useSlots;
+    }
     public boolean isConsumable() {
         return isConsumable;
     }
@@ -54,22 +67,31 @@ public class Item {
     public void setDescription(String description) {
         this.description = description;
     }
-
     public boolean isConsumed() {
         return isConsumed;
     }
-
     public void setConsumed(boolean isConsumed) {
         this.isConsumed = isConsumed;
     }
-
     public boolean isSpent() {
         return isSpent;
     }
-
     public void setSpent(boolean isSpent) {
         this.isSpent = isSpent;
     }
+    public int getDamageModifier() {
+        return damageModifier;
+    }
+    public void setDamageModifier(int damageModifier) {
+        this.damageModifier = damageModifier;
+    }
+    public int getHealthModifier() {
+        return healthModifier;
+    }
+    public void setHealthModifier(int healthModifier) {
+        this.healthModifier = healthModifier;
+    }
+
     //end getter and setters
 
 
@@ -81,6 +103,35 @@ public class Item {
     //spends the item, can be refreshed during long rest
     public void spendItem() {
         this.isSpent = true;
+    }
+
+    //uses item, and based on description adds health or damage
+    public int useItem() {
+        //checks if item is already consumed/spent
+        if (isConsumed || isSpent) {
+            System.out.println("Item has been used already");
+            return 0;
+        }
+        String desc = getDescription().toLowerCase();
+        if (isConsumable) { //consumes item
+            if (desc.contains("health")) {
+                consumeItem();
+                return getHealthModifier();
+            } else if (desc.contains("attack")) {
+                consumeItem();
+                return getDamageModifier();
+            }
+        } else if (isSpendable) {   //spends item
+            if (desc.contains("health")) {
+                spendItem();
+                return getHealthModifier();
+            } else if (desc.contains("attack")) {
+                spendItem();
+                return getDamageModifier();
+            }
+        }
+
+        return 0;
     }
 
     //checks if two items are equal
