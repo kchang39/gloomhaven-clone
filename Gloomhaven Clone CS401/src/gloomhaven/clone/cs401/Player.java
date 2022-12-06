@@ -5,6 +5,9 @@ public class Player {
 	private String job;
 	private Deck deck;
 	
+	private int x;
+	private int y;
+	
 	private int level;
 	private int exp;
 	private int levelUpPoint;
@@ -24,6 +27,8 @@ public class Player {
 		levelUpPoint = 45;
 		gold = 0;
 		shield = 0;
+		x = 0;
+		y = 0;
 		int handSize = 0;
 		
 		//Hard coded jobs.
@@ -55,36 +60,40 @@ public class Player {
 	}
 	
 	void AddExp(int x){//MUST be in town to level-up.
-		exp += x;
-		while(exp >= levelUpPoint) {//Add new perks.
-			levelUpPoint += 45 + (5 * level);
-			level++;
+		if(alive) {
+			exp += x;
+			while(exp >= levelUpPoint) {//Add new perks.
+				levelUpPoint += 45 + (5 * level);
+				level++;
 			
-			//Hard coded jobs.
-			if(job == "Scoundrel") {
-				maxHP = (int) Math.floor(6.5+(1.5*level));
-				currentHP = maxHP;//Restore health on level-up?
-			}
-			else if(job == "Brute") {
-				maxHP = 8+(2*level);
-				currentHP = maxHP;
-			}
-			else if(job == "Spellweaver") {
-				maxHP = 5+(1*level);
-				currentHP = maxHP;
-			}
-			else if(job == "Tinkerer") {
-				maxHP = (int) Math.floor(6.5+(1.5*level));
-				currentHP = maxHP;
+				//Hard coded jobs.
+				if(job == "Scoundrel") {
+					maxHP = (int) Math.floor(6.5+(1.5*level));
+					currentHP = maxHP;//Restore health on level-up?
+				}
+				else if(job == "Brute") {
+					maxHP = 8+(2*level);
+					currentHP = maxHP;
+				}
+				else if(job == "Spellweaver") {
+					maxHP = 5+(1*level);
+					currentHP = maxHP;
+				}
+				else if(job == "Tinkerer") {
+					maxHP = (int) Math.floor(6.5+(1.5*level));
+					currentHP = maxHP;
+				}
 			}
 		}
 	}
 	
 	void takeDmg(int x) {
-		if(x > shield) {
-			currentHP -= (x - shield);
-			if(currentHP <= 0) {
-				alive = false;
+		if(alive) {	
+			if(x > shield) {
+				currentHP -= (x - shield);
+				if(currentHP <= 0) {
+					alive = false;
+				}
 			}
 		}
 	}
@@ -104,25 +113,38 @@ public class Player {
 	}
 	
 	void addShield(int x) {
+		if(alive) {
 		shield += x;
+		}
 	}
 	
 	void shortRest() {//lose 1 random discarded card, shuffle discard piles into main deck
-		deck.loseRandom();
-		deck.shuffleHand();
-		deck.shuffleModifiers();
+		if(alive) {
+			deck.loseRandom();
+			deck.shuffleHand();
+			deck.shuffleModifiers();
+		}
 	}
 	
 	void longRest() {//lose 1 chosen discarded card, shuffle discard piles into main deck
-		deck.loseChoice();
-		deck.shuffleHand();
-		deck.shuffleModifiers();
-		//deck.refreshItems();
-		healDmg(2);
+		if(alive) {
+			deck.loseChoice();
+			deck.shuffleHand();
+			deck.shuffleModifiers();
+			//deck.refreshItems();
+			healDmg(2);
+		}
 	}
 	
-	public void printPlayer() {
-		System.out.println(this.name + "(Lvl:" + level + " - " + job + "): " + "HP(" + currentHP + "/" + maxHP + ")");
+	void move(int newX, int newY) {
+		if(alive) {
+			x = newX;
+			y = newY;
+		}
+	}
+	
+	public String toString() {
+		return (this.name + "(Lvl:" + level + " - " + job + "): " + "HP(" + currentHP + "/" + maxHP + ")");
 	}
 
 	
@@ -155,5 +177,13 @@ public class Player {
 	}
 	public Deck getDeck() {
 		return deck;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
 	}
 }

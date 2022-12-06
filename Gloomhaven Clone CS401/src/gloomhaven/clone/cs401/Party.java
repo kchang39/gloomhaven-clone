@@ -46,7 +46,7 @@ public class Party {
 		System.out.println(name + ": ");
 		System.out.println("Members: " + players.size());
 		for(int i = 0; i < players.size(); i++) {
-			players.get(i).printPlayer();
+			System.out.println(players.get(i).toString());
 		}
 	}
 

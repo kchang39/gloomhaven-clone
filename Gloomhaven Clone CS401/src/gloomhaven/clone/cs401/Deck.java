@@ -13,7 +13,7 @@ public class Deck {
 	private List<BattleGoalCard> battleGoalCards = new ArrayList<BattleGoalCard>();
 	
 	//Item cards
-	private List<Item> ItemCards = new ArrayList<Items>();
+	private List<Item> ItemCards = new ArrayList<Item>();
 	
 	private List<AbilityCard> hand = new ArrayList<AbilityCard>();//holds your available cards for the scenario.
 	private int handSize;

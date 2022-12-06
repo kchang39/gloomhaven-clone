@@ -57,8 +57,8 @@ public class Enemy {
 		shield += x;
 	}
 
-	public void printEnemy() {
-		System.out.println(this.name + "(Lvl:" + level + " - " + getRarity() + "): " + "HP(" + currentHP + "/" + maxHP + ")");
+	public String toString() {
+		return (this.name + "(Lvl:" + level + " - " + getRarity() + "): " + "HP(" + currentHP + "/" + maxHP + ")");
 	}
 
 	public String getName() {
