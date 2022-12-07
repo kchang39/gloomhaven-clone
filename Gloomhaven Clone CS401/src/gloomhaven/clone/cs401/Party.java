@@ -10,7 +10,6 @@ public class Party {
 	private List<Player> players = new ArrayList<Player>();
 	
 	private int reputation;
-	//private int shopModifier;//might be moved to shop class.
 	
 	Party(String name, int numPlayers){
 		this.name = name;
@@ -38,10 +37,6 @@ public class Party {
 		players.add(new Player(playerName, jobNum));
 	}
 	
-	public void removePlayer() {
-		
-	}
-	
 	public void printParty() {
 		System.out.println(name + ": ");
 		System.out.println("Members: " + players.size());
@@ -58,5 +53,13 @@ public class Party {
 		return reputation;
 	}
 	
+	public boolean isAlive() {
+		for(int i = 0; i < players.size(); i++) {
+			if(players.get(i).isAlive()) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 }

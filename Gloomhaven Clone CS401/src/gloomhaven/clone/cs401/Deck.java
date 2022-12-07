@@ -16,10 +16,10 @@ public class Deck {
 	private List<Item> ItemCards = new ArrayList<Item>();
 	
 	private List<AbilityCard> hand = new ArrayList<AbilityCard>();//holds your available cards for the scenario.
-	private int handSize;
+	private int maxHandSize;
 	
 	public Deck(int handSize, String filename) {
-		this.handSize = handSize;
+		this.maxHandSize = handSize;
 		//fill card lists from files. Unique files for each card type.
 		try {
 			getAbilityCards(filename);
@@ -68,7 +68,7 @@ public class Deck {
 	public void pickHand() {
 		Scanner input = new Scanner(System.in);
 		int totalHand = 0, temp;
-		System.out.print("\nSelect " + handSize + " cards to fill your hand:");
+		System.out.print("\nSelect " + maxHandSize + " cards to fill your hand:");
 		showAbilityDeck();
 		do {
 			for(int i = 0; i < abilityCards.size(); i++) {
@@ -76,24 +76,24 @@ public class Deck {
 					System.out.println("\n[x" + abilityCards.get(i).getQuantity() + " - " + abilityCards.get(i).toString() + "]");
 					System.out.print("How many of the above cards do you want in your hand: ");
 					temp = input.nextInt();
-					if(temp > abilityCards.get(i).getQuantity() || totalHand + temp > handSize || temp < 0) {
+					if(temp > abilityCards.get(i).getQuantity() || totalHand + temp > maxHandSize || temp < 0) {
 						System.out.println("Error: Not enough of that card or your hand would be full. Please try again.\n");
 					}
-				}while(temp > abilityCards.get(i).getQuantity() || totalHand + temp > handSize || temp < 0);
+				}while(temp > abilityCards.get(i).getQuantity() || totalHand + temp > maxHandSize || temp < 0);
 				//adding the cards to hand list.
 				for(int a = 0; a < temp; a++) {
 					hand.add(new AbilityCard(abilityCards.get(i)));
 					hand.get(hand.size() - 1).setQuantity(temp);
 				}
 				totalHand += temp;
-				System.out.println(handSize - totalHand + " cards left.");
+				System.out.println(maxHandSize - totalHand + " cards left.");
 			}
-			if(totalHand < handSize) {
+			if(totalHand < maxHandSize) {
 				System.out.print("\nNot enough cards were chosen. Pick again.\n");
 				hand.clear();
 				totalHand = 0;
 			}
-		}while(totalHand < handSize);
+		}while(totalHand < maxHandSize);
 		showHand();
 	}
 	
@@ -127,7 +127,7 @@ public class Deck {
 		battleGoalCards.get(0);
 	}
 	 
-	public AbilityCard getHand(int x) {//should this be here or in player class?
+	public AbilityCard getHandCard(int x) {//should this be here or in player class?
 		//needs check for if card is discarded or lost
 		Scanner input = new Scanner(System.in);
 		while(hand.get(x).isDiscarded() || hand.get(x).isLost()) {
@@ -258,11 +258,11 @@ public class Deck {
 		
 	}
 	
-	public int getHandSize() {
-		return handSize;
+	public int getMaxHandSize() {
+		return maxHandSize;
 	}
 
-	public int getActiveHand() {
+	public int getHandSize() {
 		int counter = 0;
 		for(int i = 0; i < hand.size(); i++) {
 			if(!hand.get(i).isDiscarded() && !hand.get(i).isLost()) {
