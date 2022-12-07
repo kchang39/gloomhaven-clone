@@ -6,10 +6,20 @@ import java.util.ArrayList;
 class boardLocation{
     
     private int pieceType = 0;
-    private Player player;
+    private int player;
     private Enemy enemy;
+    private int x;
+    private int y;
     
-    public void addPlayer(Player play){
+    public void addX(int xCoord){
+        x = xCoord;
+    }
+    
+    public void addY(int yCoord){
+        y = yCoord;
+    }
+    
+    public void addPlayer(int play){
         
         player = play;
         pieceType = 1;
@@ -25,7 +35,7 @@ class boardLocation{
     
     public void removeObject(){
         
-        player = null;
+        player = -1;
         enemy = null;
         pieceType = 0;
         
@@ -37,7 +47,7 @@ class boardLocation{
         
     }
     
-    public Player getPlayer(){
+    public int getPlayer(){
         
         return player;
         
@@ -47,6 +57,14 @@ class boardLocation{
         
         return enemy;
         
+    }
+    
+    public int getX(){
+        return x;
+    }
+    
+    public int getY(){
+        return y;
     }
     
 }
@@ -64,7 +82,7 @@ public class Board {
             
             check = Tiles[before].getPieceType();
             if(check == 1){
-                Player play = Tiles[before].getPlayer();
+                int play = Tiles[before].getPlayer();
                 Tiles[after].addPlayer(play);
                 Tiles[before].removeObject();
             }else if(check == 2){
@@ -80,7 +98,7 @@ public class Board {
         return validMove;
     }
     
-    public void updateTilePlayer(Player player, int tile){
+    public void updateTilePlayer(int player, int tile){
         
         Tiles[tile].addPlayer(player);
         
@@ -104,7 +122,7 @@ public class Board {
         
     }
     
-    public Player checkPlayer(int tile){
+    public int checkPlayer(int tile){
         
         return Tiles[tile].getPlayer();
         
