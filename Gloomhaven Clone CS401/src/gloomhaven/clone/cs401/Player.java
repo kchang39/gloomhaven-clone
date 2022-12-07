@@ -20,6 +20,7 @@ public class Player {
 	private boolean alive;
 	
 	private int gold;
+	private int initiative;
 	
 	Player(String newName, int newJob){
 		name = newName;
@@ -28,6 +29,7 @@ public class Player {
 		exp = 0;
 		levelUpPoint = 45;
 		gold = 0;
+		initiative = 0;
 		shield = 0;
 		x = 0;
 		y = 0;
@@ -140,7 +142,7 @@ public class Player {
 	
 	void addShield(int x) {
 		if(alive) {
-		shield += x;
+			shield += x;
 		}
 	}
 	
@@ -170,7 +172,7 @@ public class Player {
 	}
 	
 	public String toString() {
-		return (this.name + "(Lvl:" + level + " - " + job + "): " + "HP(" + currentHP + "/" + maxHP + ")");
+		return (this.name + "(Lvl:" + level + " - " + job + "): " + "HP(" + currentHP + "/" + maxHP + "), Position(" + x + "," + y + ")");
 	}
 
 	
@@ -211,5 +213,9 @@ public class Player {
 
 	public int getY() {
 		return y;
+	}
+
+	public int getInitiative() {
+		return initiative;
 	}
 }

@@ -37,8 +37,16 @@ public class Party {
 		players.add(new Player(playerName, jobNum));
 	}
 	
+	public void playerTurns() {
+		for(int i = 0; i < players.size(); i++) {
+			if(players.get(i).isAlive()) {
+				players.get(i).playerTurn();
+			}
+		}
+	}
+	
 	public void printParty() {
-		System.out.println(name + ": ");
+		System.out.println("Party Name: " + name);
 		System.out.println("Members: " + players.size());
 		for(int i = 0; i < players.size(); i++) {
 			System.out.println(players.get(i).toString());

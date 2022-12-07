@@ -6,6 +6,9 @@ public class GloomhavenCloneCS401 {
 	
     public static void main(String[] args) {
     	Scanner scanner = new Scanner(System.in);
+    	EnemyParty mobs = new EnemyParty(5, "MolePeople");
+    	
+    	
     	String partyName;
     	int partySize;
     	
@@ -26,13 +29,18 @@ public class GloomhavenCloneCS401 {
     	//Scenario Text - Name, level, lore
     	
     	//check if party is alive.
-    	
+    	if(party.isAlive()) {
+    		party.printParty();
+    		
+    		
+    		
     	//players choose cards or rest.
     	//enemies choose random ability cards.
     	
     	//establish initiative order.
     	//players and enemies take actions.
-    	
+    		
+    	}
     	//repeat
     	
     	

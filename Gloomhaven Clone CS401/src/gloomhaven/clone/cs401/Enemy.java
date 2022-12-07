@@ -17,7 +17,8 @@ public class Enemy {
 	private int attack;
 	private int range;
 	
-	private List<EnemyAbilityCard> hand = new ArrayList<EnemyAbilityCard>();//might get moved to scenario class.
+	private int x;
+	private int y;
 	
 	Enemy(String name, int level, int rarity, int maxHP, int movement, int attack, int range){
 		this.name = name;
@@ -28,6 +29,8 @@ public class Enemy {
 		this.movement = movement;
 		this.attack = attack;
 		this.range = range;
+		x = 0;
+		y = 0;
 	}
 	
 	void takeDmg(int x) {
@@ -54,11 +57,20 @@ public class Enemy {
 	}
 	
 	void addShield(int x) {
-		shield += x;
+		if(alive) {
+			shield += x;
+		}
 	}
 
+	void move(int newX, int newY) {
+		if(alive) {
+			x = newX;
+			y = newY;
+		}
+	}
+	
 	public String toString() {
-		return (this.name + "(Lvl:" + level + " - " + getRarity() + "): " + "HP(" + currentHP + "/" + maxHP + ")");
+		return (this.name + "(Lvl:" + level + " - " + getRarity() + "): " + "HP(" + currentHP + "/" + maxHP + "), Position(" + x + "," + y + ")");
 	}
 
 	public String getName() {
@@ -96,5 +108,11 @@ public class Enemy {
 	}
 	public boolean isAlive() {
 		return alive;
+	}
+	public int getX() {
+		return x;
+	}
+	public int getY() {
+		return y;
 	}
 }
