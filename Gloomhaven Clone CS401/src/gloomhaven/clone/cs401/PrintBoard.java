@@ -12,6 +12,7 @@ public class PrintBoard {
         System.out.print("\n1");
         
         for(int i = 0; i < 12; i++){
+            System.out.println();
             System.out.print(i);
             System.out.print("  ");
             for(int h = 0; h< 12; h++){
