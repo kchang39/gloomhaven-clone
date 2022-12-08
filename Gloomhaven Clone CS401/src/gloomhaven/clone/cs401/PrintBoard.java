@@ -15,7 +15,7 @@ public class PrintBoard {
             System.out.print(i);
             System.out.print("  ");
             for(int h = 0; h< 12; h++){
-            int j = board.CheckObjectTypeInTile(i, h);
+            int j = board.CheckObjectTypeInTile(h, i);
                 if(j == 0){
                     System.out.print("⬡  ");
                 }else if(j == 1){
