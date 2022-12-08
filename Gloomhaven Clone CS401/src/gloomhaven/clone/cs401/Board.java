@@ -34,21 +34,41 @@ class boardLocation{
 
 public class Board {
     
-    private boardLocation[][] Tiles = new boardLocation[12][12];
+    private ArrayList<ArrayList<boardLocation>> Tiles;
+    private int xSize;
+    private int ySize;
+    
+    public void initializeBoardSize(int xS, int yS){
+        xSize = xS;
+        ySize = yS;
+        
+        Tiles.add(new ArrayList(xSize));
+        for(int i = 0; i < xSize; i++){
+            Tiles.get(i).add(new boardLocation());
+        }
+    }
+    
+    public int getXsize(){
+        return xSize;
+    }
+    
+    public int getYsize(){
+        return ySize;
+    }
     
     public Boolean Move(int before_x, int before_y, int after_x, int after_y){
         
         Boolean validMove = true;
         
-        int checkEmpty = Tiles[after_x][after_y].getPieceType();
+        int checkEmpty = Tiles.get(after_x).get(after_y).getPieceType();
         if(checkEmpty != 0){
             validMove = false;
         }else{
-            int newType = Tiles[before_x][before_y].getPieceType();
-            int partyMember = Tiles[before_x][before_y].getPartyMember();
-            Tiles[after_x][after_y].changePieceType(newType);
-            Tiles[after_x][after_y].changePartyMember(partyMember);
-            Tiles[before_x][before_y].Empty();
+            int newType = Tiles.get(before_x).get(before_y).getPieceType();
+            int partyMember = Tiles.get(before_x).get(before_y).getPartyMember();
+            Tiles.get(after_x).get(after_y).changePieceType(newType);
+            Tiles.get(after_x).get(after_y).changePartyMember(partyMember);
+            Tiles.get(before_x).get(before_y).Empty();
         }
         
         return validMove;
@@ -56,23 +76,23 @@ public class Board {
     
     public void updateTile(int x, int y, int type, int party){
         //Use type = 0 for empty tile, type = 1 for player, type = 2 for enemy
-        Tiles[x][y].changePieceType(type);
-        Tiles[x][y].changePartyMember(party);
+        Tiles.get(x).get(y).changePieceType(type);
+        Tiles.get(x).get(y).changePartyMember(party);
         
     }
     
     public void emptyTile(int x, int y){
-        Tiles[x][y].Empty();
+        Tiles.get(x).get(y).Empty();
     }
     
     public int CheckObjectTypeInTile(int x, int y){
         //Should return 0 for empty tile, 1 for player, and 2 for enemy
-        return Tiles[x][y].getPieceType();
+        return Tiles.get(x).get(y).getPieceType();
         
     }
     
     public int CheckPartyMember(int x, int y){
-        return Tiles[x][y].getPartyMember();
+        return Tiles.get(x).get(y).getPartyMember();
     }
     
     public boolean isAdjacent(int x1, int y1, int x2, int y2){
