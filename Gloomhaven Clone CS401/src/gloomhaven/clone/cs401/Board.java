@@ -25,17 +25,31 @@ class boardLocation{
         return party;
     }
     
+    public void Empty(){
+        pieceType = 0;
+        party = -1;
+    }
+    
 }
 
 public class Board {
     
     private boardLocation[][] Tiles = new boardLocation[12][12];
     
-    public Boolean Move(int before, int after){
+    public Boolean Move(int before_x, int before_y, int after_x, int after_y){
         
         Boolean validMove = true;
         
-        
+        int checkEmpty = Tiles[after_x][after_y].getPieceType();
+        if(checkEmpty != 0){
+            validMove = false;
+        }else{
+            int newType = Tiles[before_x][before_y].getPieceType();
+            int partyMember = Tiles[before_x][before_y].getPartyMember();
+            Tiles[after_x][after_y].changePieceType(newType);
+            Tiles[after_x][after_y].changePartyMember(partyMember);
+            Tiles[before_x][before_y].Empty();
+        }
         
         return validMove;
     }
