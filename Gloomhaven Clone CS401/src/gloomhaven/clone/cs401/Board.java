@@ -42,9 +42,9 @@ public class Board {
         xSize = xS;
         ySize = yS;
         
-        Tiles.add(new ArrayList(xSize));
+        Tiles = new ArrayList<>(xSize);
         for(int i = 0; i < xSize; i++){
-            Tiles.get(i).add(new boardLocation());
+            Tiles.add(new ArrayList(ySize));
         }
     }
     
