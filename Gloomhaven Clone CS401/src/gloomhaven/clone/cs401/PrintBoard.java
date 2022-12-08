@@ -4,18 +4,21 @@ public class PrintBoard {
     
     public void Print(Board board){
         
-        for (int k = 0; k < 12; k++){
+        int x = board.getXsize();
+        int y = board.getYsize();
+        
+        for (int k = 0; k < x; k++){
             System.out.print(k);
             System.out.print("  ");
         }
         
         System.out.print("\n1");
         
-        for(int i = 0; i < 12; i++){
+        for(int i = 0; i < y; i++){
             System.out.println();
             System.out.print(i);
             System.out.print("  ");
-            for(int h = 0; h< 12; h++){
+            for(int h = 0; h< x; h++){
             int j = board.CheckObjectTypeInTile(h, i);
                 if(j == 0){
                     System.out.print("⬡  ");
