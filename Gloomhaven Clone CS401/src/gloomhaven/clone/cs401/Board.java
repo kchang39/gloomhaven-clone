@@ -61,6 +61,10 @@ public class Board {
         
     }
     
+    public void emptyTyle(int x, int y){
+        Tiles[x][y].Empty();
+    }
+    
     public int CheckObjectTypeInTile(int x, int y){
         //Should return 0 for empty tile, 1 for player, and 2 for enemy
         return Tiles[x][y].getPieceType();
