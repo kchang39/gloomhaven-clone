@@ -8,7 +8,6 @@ public class GloomhavenCloneCS401 {
     	Scanner scanner = new Scanner(System.in);
     	EnemyParty mobs = new EnemyParty(5, "MolePeople");
     	
-    	
     	String partyName;
     	int partySize;
     	
@@ -23,26 +22,55 @@ public class GloomhavenCloneCS401 {
     	}while(partySize > 4 || partySize <= 0);
     	
     	Party party = new Party(partyName, partySize);
+    	party.pickHands();
     	
     	
-    	
+    	int input;
+    	AbilityCard[] abilityCards = new AbilityCard[party.getSize()];
     	//Scenario Text - Name, level, lore
+    	//change the x,y coordinates for every player and monster to a starting position.
+    	//edit the board to match player and monster positions
+    	
     	
     	//check if party is alive.
-    	if(party.isAlive()) {
+    	do{
     		party.printParty();
     		
+        	//players choose cards or rest.
+    		for(int i = 0; i < party.getSize(); i++) {
+    			if(party.getPlayer(i).isAlive()) {
+    				do {
+    					System.out.print("Player #" + (i+1) + ", choose an action. Long Rest(0) or Choose 2 Ability Cards(1): ");
+    					input = scanner.nextInt();
+    					if(input != 0 && input != 1) {
+    						System.out.println("Error: Invalid Input.");
+    					}
+    				}while(input != 0 && input != 1);
+    			
+    				if(input == 0) {
+    					party.getPlayer(i).longRest();
+    				}
+    				else {
+    					//add ability card functionality 
+    				}
+    			}
+    		}
     		
-    		
-    	//players choose cards or rest.
     	//enemies choose random ability cards.
     	
     	//establish initiative order.
     	//players and enemies take actions.
     		
-    	}
-    	//repeat
+    	}while(party.isAlive() && mobs.isAlive());//repeat until one party is dead.
     	
+    	
+    	if(!party.isAlive()) {
+    		System.out.println("\n---GAME OVER---");
+    	}
+    	else if(!mobs.isAlive()) {
+    		System.out.println("\n---QUEST COMPLETE---");
+    		System.out.println("\n- All the molemen were eliminated");
+    	}
     	
     	
     }

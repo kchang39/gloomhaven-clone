@@ -16,9 +16,23 @@ public class AbilityCard {
 	
 	private boolean discarded;
 	private boolean lost;
+
 	
+	AbilityCard() {
+		quantity = 0;
+		Name = null;
+		initNum = 0;
+		levelNum = 0;
+		topDamage = 0;
+		range = 1;//For now default range is 1
+		botMovement = 0;
+		botHeal = 0;
+		botShield = 0;
+		discarded = false;
+		lost = false;
+	}
   //Constructor used to initialize the variables.
-	public AbilityCard(int quant, String N, int IN, int ln, int tD, int bM, int bH, int bS) {
+	AbilityCard(int quant, String N, int IN, int ln, int tD, int bM, int bH, int bS) {
 		quantity = quant;
 		Name = N;
 		initNum = IN;
@@ -32,7 +46,7 @@ public class AbilityCard {
 		lost = false;
 	}
 	//Copy Constructor
-	public AbilityCard(AbilityCard x) {
+	AbilityCard(AbilityCard x) {
 		this.quantity = x.quantity;
 		this.Name = x.Name;
 		this.initNum = x.initNum;

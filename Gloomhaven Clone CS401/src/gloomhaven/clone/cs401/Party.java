@@ -37,16 +37,23 @@ public class Party {
 		players.add(new Player(playerName, jobNum));
 	}
 	
-	public void playerTurns() {
+	public void pickHands() {
 		for(int i = 0; i < players.size(); i++) {
-			if(players.get(i).isAlive()) {
-				players.get(i).playerTurn();
-			}
+			System.out.println("\nPlayer: " + players.get(i).getName());
+			players.get(i).getDeck().pickHand();
 		}
 	}
 	
+//	public void playerTurns() {
+//		for(int i = 0; i < players.size(); i++) {
+//			if(players.get(i).isAlive()) {
+//				players.get(i).playerTurn();
+//			}
+//		}
+//	}
+	
 	public void printParty() {
-		System.out.println("Party Name: " + name);
+		System.out.println("\nParty Name: " + name);
 		System.out.println("Members: " + players.size());
 		for(int i = 0; i < players.size(); i++) {
 			System.out.println(players.get(i).toString());
@@ -70,4 +77,11 @@ public class Party {
 		return false;
 	}
 	
+	public int getSize() {
+		return players.size();
+	}
+	
+	public Player getPlayer(int i) {
+		return players.get(i);
+	}
 }

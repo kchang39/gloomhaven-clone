@@ -63,29 +63,29 @@ public class Player {
 		deck = new Deck(handSize, job);
 	}
 
-	public int playerTurn() {
-		Scanner scanner = new Scanner(System.in);
-		int input;
-		
-		do {
-			System.out.print("Enter 0 to Long Rest or 1 to Attack: ");
-			input = scanner.nextInt();
-			if(input != 0 && input != 1) {
-				System.out.println("Error: Invalid Input.");
-			}
-		}while(input != 0 && input != 1);
-		
-		if(input == 0) {
-			longRest();
-		}
-		else {
-			deck.showHand();
-			System.out.print("Choose two cards to play: ");
-			
-		}
-		
-		return 0;
-	}
+//	public int playerTurn() {
+//		Scanner scanner = new Scanner(System.in);
+//		int input;
+//		
+//		do {
+//			System.out.print("Enter 0 to Long Rest or 1 to Attack: ");
+//			input = scanner.nextInt();
+//			if(input != 0 && input != 1) {
+//				System.out.println("Error: Invalid Input.");
+//			}
+//		}while(input != 0 && input != 1);
+//		
+//		if(input == 0) {
+//			longRest();
+//		}
+//		else {
+//			deck.showHand();
+//			System.out.print("Choose two cards to play: ");
+//			
+//		}
+//		
+//		return 0;
+//	}
 	
 	void AddExp(int x){//MUST be in town to level-up.
 		if(alive) {

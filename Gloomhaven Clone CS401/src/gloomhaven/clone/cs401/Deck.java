@@ -68,7 +68,7 @@ public class Deck {
 	public void pickHand() {
 		Scanner input = new Scanner(System.in);
 		int totalHand = 0, temp;
-		System.out.print("\nSelect " + maxHandSize + " cards to fill your hand:");
+		System.out.print("Select " + maxHandSize + " cards to fill your hand:");
 		showAbilityDeck();
 		do {
 			for(int i = 0; i < abilityCards.size(); i++) {
@@ -86,7 +86,7 @@ public class Deck {
 					hand.get(hand.size() - 1).setQuantity(temp);
 				}
 				totalHand += temp;
-				System.out.println(maxHandSize - totalHand + " cards left.");
+				System.out.println(maxHandSize - totalHand + " cards slots remaining.");
 			}
 			if(totalHand < maxHandSize) {
 				System.out.print("\nNot enough cards were chosen. Pick again.\n");

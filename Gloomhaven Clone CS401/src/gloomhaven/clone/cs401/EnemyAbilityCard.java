@@ -8,6 +8,7 @@ public class EnemyAbilityCard {
 	private int heal;
 	private int initiative;
 	private boolean reshuffle;
+	private boolean discarded;
 	
 	EnemyAbilityCard(int attack, int range, int movement, int shield, int heal, int initiative, boolean reshuffle){
 		this.attack = attack;
@@ -17,6 +18,7 @@ public class EnemyAbilityCard {
 		this.heal = heal;
 		this.initiative = initiative;
 		this.reshuffle = reshuffle;
+		discarded = false;
 	}
 
 	public int getAttack() {
@@ -45,5 +47,13 @@ public class EnemyAbilityCard {
 
 	public int getRange() {
 		return range;
+	}
+
+	public boolean isDiscarded() {
+		return discarded;
+	}
+
+	public void setDiscarded(boolean discarded) {
+		this.discarded = discarded;
 	}
 }
