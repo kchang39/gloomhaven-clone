@@ -75,4 +75,16 @@ public class Board {
         return Tiles[x][y].getPartyMember();
     }
     
+    public boolean isAdjacent(int x1, int y1, int x2, int y2){
+        boolean adjacent = false;
+        
+        if(x1 == x2 || x1 == (x2 + 1) || x1 == (x2 - 1)){
+            if (y1 == y2 || y1 == (y2 + 1) || y1 == (y2 - 1)){
+                adjacent = true;
+            }
+        }
+        
+        return adjacent;
+    }
+    
 }
