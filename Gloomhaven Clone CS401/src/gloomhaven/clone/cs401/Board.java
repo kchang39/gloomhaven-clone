@@ -61,7 +61,7 @@ public class Board {
         
     }
     
-    public void emptyTyle(int x, int y){
+    public void emptyTile(int x, int y){
         Tiles[x][y].Empty();
     }
     
