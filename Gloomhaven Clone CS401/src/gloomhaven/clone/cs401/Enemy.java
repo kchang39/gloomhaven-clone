@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Enemy {
+	int id;
 	private String name;
 	private int level;
 	private int rarity;//1 = normal, 2 = elite, 3 = boss.
@@ -16,11 +17,14 @@ public class Enemy {
 	private int movement;
 	private int attack;
 	private int range;
+	private int initiative;
 	
 	private int x;
 	private int y;
 	
-	Enemy(String name, int level, int rarity, int maxHP, int movement, int attack, int range){
+	Enemy(int id, String name, int level, int rarity, int maxHP, int movement, int attack, int range){
+		alive = true;
+		this.id = id;
 		this.name = name;
 		this.level = level;
 		this.rarity = rarity;
@@ -31,15 +35,20 @@ public class Enemy {
 		this.range = range;
 		x = 0;
 		y = 0;
+		initiative = 0;
 	}
 	
-	void takeDmg(int x) {
-		if(x > shield) {
-			currentHP -= (x - shield);
-			if(currentHP <= 0) {
-				alive = false;
+	int takeDmg(int x) {
+		if(alive) {	
+			if(x > shield) {
+				currentHP -= (x - shield);
+				if(currentHP <= 0) {
+					alive = false;
+				}
+				return x - shield;
 			}
 		}
+		return 0;
 	}
 	
 	void healDmg(int x) {
@@ -114,5 +123,14 @@ public class Enemy {
 	}
 	public int getY() {
 		return y;
+	}
+	public int getInitiative() {
+		return initiative;
+	}
+	public void setInitiative(int i) {
+		initiative = i;
+	}
+	public int getID() {
+		return id;
 	}
 }

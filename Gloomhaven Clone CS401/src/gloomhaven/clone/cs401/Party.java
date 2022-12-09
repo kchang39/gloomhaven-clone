@@ -44,17 +44,8 @@ public class Party {
 		}
 	}
 	
-//	public void playerTurns() {
-//		for(int i = 0; i < players.size(); i++) {
-//			if(players.get(i).isAlive()) {
-//				players.get(i).playerTurn();
-//			}
-//		}
-//	}
-	
 	public void printParty() {
 		System.out.println("\nParty Name: " + name);
-		System.out.println("Members: " + players.size());
 		for(int i = 0; i < players.size(); i++) {
 			System.out.println(players.get(i).toString());
 		}
@@ -83,5 +74,11 @@ public class Party {
 	
 	public Player getPlayer(int i) {
 		return players.get(i);
+	}
+	
+	public void clearInitiative() {
+		for(int i = 0; i < players.size(); i++) {
+			players.get(i).setInitiative(0);
+		}
 	}
 }

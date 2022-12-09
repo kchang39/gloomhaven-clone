@@ -20,7 +20,7 @@ public class AbilityCard {
 	
 	AbilityCard() {
 		quantity = 0;
-		Name = null;
+		Name = "";
 		initNum = 0;
 		levelNum = 0;
 		topDamage = 0;

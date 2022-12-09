@@ -42,7 +42,7 @@ public class EnemyParty {
 			range = scanner.nextInt();
 		}
 		for(int i = 0; i < size; i++) {
-			enemyList.add(new Enemy(name, level, rarity, health, movement, atk, range));
+			enemyList.add(new Enemy(i, name, level, rarity, health, movement, atk, range));
 		}
 		
 	}
@@ -107,7 +107,7 @@ public class EnemyParty {
 		return atkModCards.get(index).getAtkMod();//should range from +2 through -2.
 	}
 	
-	public EnemyAbilityCard drawAbilityCard() {//returns an ability card to use for that turn.
+	public EnemyAbilityCard drawAbilityCard(int a) {//returns an ability card to use for that turn.
 		int index, count = 0;
 		for(int i = 0; i < abilityCards.size(); i++) {
 			if(!abilityCards.get(i).isDiscarded()) {
@@ -123,7 +123,7 @@ public class EnemyParty {
 		}while(abilityCards.get(index).isDiscarded());
 			
 		abilityCards.get(index).setDiscarded(true); 
-		
+		enemyList.get(a).setInitiative(abilityCards.get(index).getInitiative());
 		return abilityCards.get(index);
 	}
 	
@@ -138,6 +138,14 @@ public class EnemyParty {
 			abilityCards.get(i).setDiscarded(false);
 		}
 	}
+	
+	int getTotalDamage(int i) {
+		int temp = i + drawAttackMod(i);
+		if(temp < 0) {
+			temp = 0;
+		}
+		return temp;
+	}
 
 	public Enemy getEnemy(int i) {
 		return enemyList.get(i);
@@ -149,6 +157,25 @@ public class EnemyParty {
 				return true;
 			}
 		}
+		System.out.println("\n\n enemy died\n\n");
 		return false;
+	}
+	
+	public void clearInitiative() {
+		for(int i = 0; i < enemyList.size(); i++) {
+			enemyList.get(i).setInitiative(0);
+		}
+	}
+	
+	public int getSize() {
+		return size;
+	}
+	
+	public void printEnemies() {
+		System.out.println("\nEnemy List:");
+		for(int i = 0; i < enemyList.size(); i++) {
+			System.out.println("(" + enemyList.get(i).getID() + ")" + enemyList.get(i).toString());
+		}
+		System.out.println("");
 	}
 }

@@ -26,41 +26,139 @@ public class GloomhavenCloneCS401 {
     	
     	
     	int input;
-    	AbilityCard[] abilityCards = new AbilityCard[party.getSize()];
+    	AbilityCard[] topAbilityCardsP = new AbilityCard[party.getSize()];//Player chosed cards
+    	AbilityCard[] botAbilityCardsP = new AbilityCard[party.getSize()];
+    	
+    	EnemyAbilityCard[] AbilityCardsE = new EnemyAbilityCard[mobs.getSize()];//Enemy chosen cards
+    	
+    	int damage = 0, movement = 0;
+    	String enemyTitle, playerTitle;//used for printing outputs.
+    	
     	//Scenario Text - Name, level, lore
     	//change the x,y coordinates for every player and monster to a starting position.
     	//edit the board to match player and monster positions
     	
     	
-    	//check if party is alive.
-    	do{
+    	
+    	do{//checks if party is alive.
     		party.printParty();
     		
         	//players choose cards or rest.
     		for(int i = 0; i < party.getSize(); i++) {
     			if(party.getPlayer(i).isAlive()) {
     				do {
-    					System.out.print("Player #" + (i+1) + ", choose an action. Long Rest(0) or Choose 2 Ability Cards(1): ");
+    					System.out.print(party.getPlayer(i).getName() + ", choose an action. Long Rest(0) or Choose 2 Ability Cards(1): ");
     					input = scanner.nextInt();
     					if(input != 0 && input != 1) {
     						System.out.println("Error: Invalid Input.");
     					}
     				}while(input != 0 && input != 1);
     			
-    				if(input == 0) {
+    				if(input == 0) {//Long Rest action.
     					party.getPlayer(i).longRest();
+    					topAbilityCardsP[i] = new AbilityCard();
+    					botAbilityCardsP[i] = new AbilityCard();
     				}
-    				else {
-    					//add ability card functionality 
+    				else {//choosing ability cards
+    					party.getPlayer(i).getDeck().showHand();
+    					System.out.println("Choose a card for top abilities.");
+    					topAbilityCardsP[i] = party.getPlayer(i).chooseAbilityCard();
+    					System.out.println("Choose a card for bottom abilities.");
+    					botAbilityCardsP[i] = party.getPlayer(i).chooseAbilityCard();
     				}
     			}
     		}
     		
-    	//enemies choose random ability cards.
+    		//enemies choose random ability cards.
+    		for(int i = 0; i < mobs.getSize(); i++) {
+    			AbilityCardsE[i] = mobs.drawAbilityCard(i);
+    		}
     	
-    	//establish initiative order.
-    	//players and enemies take actions.
-    		
+    		//players and enemies take actions based on initiative order.
+    		party.printParty();
+    		mobs.printEnemies();
+    		for(int a = 1; a <= 99; a++) {
+    			for(int b = 0; b < party.getSize(); b++) {
+    				playerTitle = "Init(" + party.getPlayer(b).getInitiative() + "): " + party.getPlayer(b).getName();
+    				
+    				if(topAbilityCardsP[b].getInitiative() == a) {
+    					System.out.println(playerTitle + " uses " + topAbilityCardsP[b].getName() + " and " + botAbilityCardsP[b].getName());
+    					
+    					if(botAbilityCardsP[b].getBotHeal() != 0) {
+    						System.out.println(playerTitle + " heals for " + botAbilityCardsP[b].getBotHeal() + ".");
+    						party.getPlayer(b).healDmg(botAbilityCardsP[b].getBotHeal());
+    					}
+    					if(botAbilityCardsP[b].getBotShield() != 0) {
+    						System.out.println(playerTitle + " gains " + botAbilityCardsP[b].getBotShield() + " points of shield.");
+    						party.getPlayer(b).addShield(botAbilityCardsP[b].getBotShield());
+    					}
+    					if(topAbilityCardsP[b].getBotMovement() != 0 || botAbilityCardsP[b].getBotMovement() != 0) {
+    						movement = topAbilityCardsP[b].getBotMovement() + botAbilityCardsP[b].getBotMovement();
+    						System.out.println(playerTitle + " can move " + movement + " space(s).");
+    						//----NOTES FOR AARON----
+    						//move functionality for players
+        					//you can use party.getPlayer(b).move(x, y);
+    						//ask the user what coordinats they want to move to and check if that is valid
+    						
+    					}
+    					if(topAbilityCardsP[b].getTopDamage() != 0) {
+    						damage = party.getPlayer(b).getTotalDamage(topAbilityCardsP[b].getTopDamage());
+    						//----NOTES FOR AARON----
+    						//check if enemy is in range
+    						//choose an enemy or attack first one detected???
+    						//to attack use takeDmg(damage); on the target. Works on both enemies and players.
+    						//I added a variable for enemies that shows what that enemy's index is on the list.
+    						//after damage is done check if alive and if dead remove from the board.
+    						//needs proper text prompts to show what is happening
+    						System.out.print("");
+    						System.out.println("Init(" + party.getPlayer(b).getInitiative() + "): " + party.getPlayer(b).getName() + " can attack for " + damage + " damage.");
+    					}
+    				}
+    			}
+    			for(int c = 0; c < mobs.getSize(); c++) {
+    				if(AbilityCardsE[c].getInitiative() == a) {
+    					enemyTitle = "Init(" + mobs.getEnemy(c).getInitiative() + "): " + "(" + mobs.getEnemy(c).getID() + ")" + mobs.getEnemy(c).getName();
+
+    					System.out.println(enemyTitle + " makes it's move.");
+    					
+    					if(AbilityCardsE[c].getHeal() != 0) {
+    						System.out.println(enemyTitle + " heals for " + AbilityCardsE[c].getHeal() + ".");
+    						mobs.getEnemy(c).healDmg(AbilityCardsE[c].getHeal());
+    					}
+    					if(AbilityCardsE[c].getShield() != 0) {
+    						System.out.println(enemyTitle + " gains " + AbilityCardsE[c].getShield() + " points of shield.");
+    						mobs.getEnemy(c).addShield(AbilityCardsE[c].getShield());
+    					}
+    					
+    					movement = AbilityCardsE[c].getMovement() + mobs.getEnemy(c).getMovement();
+    					System.out.println(enemyTitle + " moves " + movement + " space(s).");	
+    					//----NOTES FOR AARON----
+    					//move functionality for enemies
+    					//you can use mobs.getEnemy(c).move(x, y);
+    					//random movement?
+
+    					if(AbilityCardsE[c].getAttack() != 0) {
+    						damage = mobs.getTotalDamage(AbilityCardsE[c].getAttack() + mobs.getEnemy(c).getAttack());
+    						//----NOTES FOR AARON----
+    						//check if enemy is in range
+    						//attack first one detected???
+    						//to attack use takeDmg(damage); on the target. Works on both enemies and players.
+    						//I added a variable for enemies that shows what that enemy's index is on the list.
+							//after damage is done check if alive and if dead remove from the board.
+    						//needs proper text prompts to show what is happening
+    						System.out.println(enemyTitle + " can attack for " + damage + " damage.");
+    					}
+    				}
+    			}
+    		}
+			for(int i = 0; i < topAbilityCardsP.length; i++) {
+				if(topAbilityCardsP[i].getInitiative() == 0) {
+					System.out.println("Init(99): " + party.getPlayer(i).getName() + " takes a lont rest.");
+				}
+			}
+			
+    		party.clearInitiative();
+    		mobs.clearInitiative();
     	}while(party.isAlive() && mobs.isAlive());//repeat until one party is dead.
     	
     	

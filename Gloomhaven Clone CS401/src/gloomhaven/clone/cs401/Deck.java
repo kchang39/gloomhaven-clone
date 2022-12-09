@@ -94,7 +94,7 @@ public class Deck {
 				totalHand = 0;
 			}
 		}while(totalHand < maxHandSize);
-		showHand();
+		//showHand();
 	}
 	
 	public int drawAttackMod(int dmg) {
@@ -127,16 +127,26 @@ public class Deck {
 		battleGoalCards.get(0);
 	}
 	 
-	public AbilityCard getHandCard(int x) {//should this be here or in player class?
-		//needs check for if card is discarded or lost
+	public AbilityCard getHandCard() {
 		Scanner input = new Scanner(System.in);
-		while(hand.get(x).isDiscarded() || hand.get(x).isLost()) {
-			System.out.print("Error: That card is either discarded or lost. Choose another card: ");
+		int x;
+		//showHand();
+		do {
+			System.out.print("Choose a card to play:");
 			x = input.nextInt();
-		}
+			if(hand.get(x).isDiscarded() || hand.get(x).isLost() || x < 0 || x >= maxHandSize) {
+				System.out.println("Error: That card is either discarded, lost, or doesn't exist. Choose another card: ");
+				if(hand.get(x).isDiscarded() || hand.get(x).isLost()) {
+					System.out.println("discarded/lost");
+				}
+				if(x < 0 || x >= abilityCards.size()) {
+					System.out.println("out of bounds");
+				}
+				
+			}
+		}while(hand.get(x).isDiscarded() || hand.get(x).isLost() || x < 0 || x >= maxHandSize);//check for if card is discarded or lost
 		hand.get(x).setDiscarded(true);
 		return hand.get(x);
-		
 	}
 	
 	public void shuffleHand() {//turn all discarded boolean variables to false.
@@ -162,17 +172,25 @@ public class Deck {
 	
 	public void loseChoice() {//when long rest, choose a discarded card to lose.
 		Scanner scanner = new Scanner(System.in);
-		int index;
-		do {
-			System.out.print("\nChoose 1 discarded card to lose:");
-			index = scanner.nextInt();
-			if(!hand.get(index).isDiscarded() || hand.get(index).isLost()) {
-				System.out.println("Error: Chosen card is not in discard pile or is already lost.Please choose another.");
-			}
-		}while(!hand.get(index).isDiscarded() || hand.get(index).isLost());//while hand(index) is not discarded and is not lost
+		int index, count = 0;
 		
-		hand.get(index).setDiscarded(false);
-		hand.get(index).setLost(true);
+		for(int i = 0; i < hand.size(); i++) {
+			if(hand.get(i).isDiscarded()) {
+				count++;
+			}
+		}
+		if(count != 0) {
+			do {
+				System.out.print("\nChoose 1 discarded card to lose:");
+				index = scanner.nextInt();
+				if(!hand.get(index).isDiscarded() || hand.get(index).isLost()) {
+					System.out.println("Error: Chosen card is not in discard pile or is already lost.Please choose another.");
+				}
+			}while(!hand.get(index).isDiscarded() || hand.get(index).isLost());//while hand(index) is not discarded and is not lost
+			
+			hand.get(index).setDiscarded(false);
+			hand.get(index).setLost(true);
+		}
 	}
 	
 	public void showModDeck() {
