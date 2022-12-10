@@ -152,12 +152,9 @@ public class GloomhavenCloneCS401 {
                                                     
                                                     x2 = party.getPlayer(b).getX();
                                                     y2 = party.getPlayer(b).getY();
-                                                    double tempX1 = (double)x1;
-                                                    double tempX2 = (double)x2;
-                                                    double tempY1 = (double)y1;
-                                                    double tempY2 = (double)y2;
                                                     
-                                                    int distance = (int)sqrt((tempX2 - tempX1)*(tempX2 - tempX1) + (tempY2 - tempY1)*(tempY2 - tempY1));
+                                                    
+                                                    int distance = board.getDistance(x1, y1, x2, y2);
                                                     if(distance <= movement){
                                                         validMove = board.Move(x2, y2, x1, y1);
                                                         if(validMove = false){
