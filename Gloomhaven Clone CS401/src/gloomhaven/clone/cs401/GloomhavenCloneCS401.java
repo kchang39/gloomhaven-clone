@@ -156,7 +156,12 @@ public class GloomhavenCloneCS401 {
                                                     
                                                     int distance = board.getDistance(x1, y1, x2, y2);
                                                     if(distance <= movement){
-                                                        validMove = board.Move(x2, y2, x1, y1);
+                                                        if (x1 <= board.getXsize() && x1 >= 0 && y1 > board.getYsize() && y1 >= 0){
+                                                            validMove = board.Move(x2, y2, x1, y1);
+                                                        }else{
+                                                            validMove = false;
+                                                        }
+                                                        
                                                         if(validMove = false){
                                                             System.out.println("Invalid move.");
                                                         }else{
@@ -165,6 +170,7 @@ public class GloomhavenCloneCS401 {
                                                     }
                                                     
                                                 }while(validMove = false);
+                                                print.Print(board);
     						
     					}
     					if(topAbilityCardsP[b].getTopDamage() != 0) {
@@ -247,6 +253,53 @@ public class GloomhavenCloneCS401 {
     					//move functionality for enemies
     					//you can use mobs.getEnemy(c).move(x, y);
     					//random movement?
+                                        boolean nextToPlayer = false;
+                                        boolean moving = true;
+                                        while(movement > 0 && nextToPlayer == false && moving == true){
+                                            
+                                            x1 = mobs.getEnemy(c).getX();
+                                            y1 = mobs.getEnemy(c).getY();
+                                            for(int z = 0; z < party.getSize(); z++){
+                                                if(party.getPlayer(z).isAlive() && nextToPlayer == false){
+                                                    x2 = party.getPlayer(z).getX();
+                                                    y2 = party.getPlayer(z).getY();
+                                                    nextToPlayer = board.isAdjacent(x1, y1, x2, y2);
+                                                }
+                                            }
+                                            
+                                            if(nextToPlayer == false){
+                                                validMove = true;
+                                                x2 = rng.nextInt(3);
+                                                y2 = rng.nextInt(3);
+                                                if(x2 == 0 && y2 == 0){
+                                                    moving = false;
+                                                }
+                                                if(x2 == 1){
+                                                    x2 = x1 + 1;
+                                                }
+                                                if (y2 == 1){
+                                                    y2 = y1 + 1;
+                                                }
+                                                if(x2 == 2){
+                                                    x2 = x1 - 1;
+                                                }
+                                                if(y2 == 2){
+                                                    y2 = y1 - 1;
+                                                }
+                                                if(x2 > board.getXsize() || x2 < 0 || y2 > board.getYsize() || y2 < 0){
+                                                    validMove = false;
+                                                }
+                                                if(moving == true && validMove == true){
+                                                    validMove = board.Move(x1, y1, x2, y2);
+                                                    if(validMove == true){
+                                                        mobs.getEnemy(c).move(x2, y2);
+                                                        movement--;
+                                                    }
+                                                }
+                                            }
+                                            
+                                        }
+                                        print.Print(board);
 
     					if(AbilityCardsE[c].getAttack() != 0) {
     						damage = mobs.getTotalDamage(AbilityCardsE[c].getAttack() + mobs.getEnemy(c).getAttack());
