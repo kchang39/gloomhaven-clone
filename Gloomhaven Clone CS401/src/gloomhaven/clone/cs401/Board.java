@@ -47,6 +47,11 @@ public class Board {
         for(int i = 0; i < xSize; i++){
             Tiles.add(new ArrayList(ySize));
         }
+        for(int i = 0; i < xSize; i++){
+            for(int j = 0; j < ySize; j++){
+                Tiles.get(i).get(j).changePieceType(0);
+            }
+        }
     }
     
     public int getXsize(){
