@@ -176,8 +176,53 @@ public class GloomhavenCloneCS401 {
     						//I added a variable for enemies that shows what that enemy's index is on the list.
     						//after damage is done check if alive and if dead remove from the board.
     						//needs proper text prompts to show what is happening
+                                                int range = topAbilityCardsP[b].getRange();
+                                                boolean enemiesInRange[] = new boolean[mobs.getSize()];
+                                                for(int z = 0; z < mobs.getSize(); z++){
+                                                    x1 = party.getPlayer(b).getX();
+                                                    y1 = party.getPlayer(b).getY();
+                                                    x2 = mobs.getEnemy(z).getX();
+                                                    y2 = mobs.getEnemy(z).getY();
+                                                    int distance = board.getDistance(x1, y1, x2, y2);
+                                                    if(range >= distance && mobs.getEnemy(z).isAlive()){
+                                                        enemiesInRange [z] = true;
+                                                    }else{
+                                                        enemiesInRange [z] = false;
+                                                    }
+                                                }
     						System.out.print("");
     						System.out.println("Init(" + party.getPlayer(b).getInitiative() + "): " + party.getPlayer(b).getName() + " can attack for " + damage + " damage.");
+                                                System.out.print("Enemies within range: ");
+                                                boolean anyInRange = false;
+                                                for(int z = 0; z < mobs.getSize(); z++){
+                                                    if (enemiesInRange[z] == true){
+                                                        System.out.print(z + " ");
+                                                        anyInRange = true;
+                                                    }
+                                                }
+                                                if(anyInRange = true){
+                                                    boolean validTarget;
+                                                    do{
+                                                        System.out.print("\nChoose an enemy to attack: ");
+                                                        int target = scanner.nextInt();
+                                                        if(enemiesInRange[target] = true){
+                                                            validTarget = true;
+                                                            System.out.println(party.getPlayer(b).getName() + " attacked " + mobs.getEnemy(target).getName() + " " + target + " for " + damage + " damage.");
+                                                            mobs.getEnemy(target).takeDmg(damage);
+                                                            if(mobs.getEnemy(target).getCurrentHP() <= 0){
+                                                                System.out.println(mobs.getEnemy(target).getName() + target + " has died.");
+                                                                x1 = mobs.getEnemy(target).getX();
+                                                                y1 = mobs.getEnemy(target).getY();
+                                                                board.emptyTile(x1, y1);
+                                                            }
+                                                        }else{
+                                                            validTarget = false;
+                                                            System.out.println("Invalid target.");
+                                                        }
+                                                    }while(validTarget = false);
+                                                }else{
+                                                    System.out.println("\nNo targets in range.");
+                                                }
     					}
     				}
     			}
