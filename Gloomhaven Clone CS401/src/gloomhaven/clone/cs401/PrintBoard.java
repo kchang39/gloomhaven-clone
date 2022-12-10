@@ -23,9 +23,9 @@ public class PrintBoard {
                 if(j == 0){
                     System.out.print("⬡  ");
                 }else if(j == 1){
-                    System.out.print("P  ");
+                    System.out.print("P " + board.CheckPartyMember(h, i));
                 }else if(j == 2){
-                    System.out.print("E  ");
+                    System.out.print("E " + board.CheckPartyMember(h, i));
                 }
             }
         }
