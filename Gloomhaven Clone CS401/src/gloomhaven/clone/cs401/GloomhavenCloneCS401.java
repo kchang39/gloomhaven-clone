@@ -215,7 +215,7 @@ public class GloomhavenCloneCS401 {
                                                             validTarget = true;
                                                             System.out.println(party.getPlayer(b).getName() + " attacked " + mobs.getEnemy(target).getName() + " " + target + " for " + damage + " damage.");
                                                             mobs.getEnemy(target).takeDmg(damage);
-                                                            if(mobs.getEnemy(target).getCurrentHP() <= 0){
+                                                            if(mobs.getEnemy(target).isAlive() == false){
                                                                 System.out.println(mobs.getEnemy(target).getName() + target + " has died.");
                                                                 x1 = mobs.getEnemy(target).getX();
                                                                 y1 = mobs.getEnemy(target).getY();
@@ -311,6 +311,35 @@ public class GloomhavenCloneCS401 {
 							//after damage is done check if alive and if dead remove from the board.
     						//needs proper text prompts to show what is happening
     						System.out.println(enemyTitle + " can attack for " + damage + " damage.");
+                                                x1 = mobs.getEnemy(c).getX();
+                                                y1 = mobs.getEnemy(c).getY();
+                                                boolean playersInRange[] = new boolean[party.getSize()];
+                                                boolean attackPhaseDone = false;
+                                                for(int z = 0; z < party.getSize(); z++){
+                                                    x2 = party.getPlayer(z).getX();
+                                                    y2 = party.getPlayer(z).getY();
+                                                    if(board.isAdjacent(x1, y1, x2, y2) && party.getPlayer(z).isAlive()){
+                                                        playersInRange[z] = true;
+                                                    }else{
+                                                        playersInRange[z] = false;
+                                                    }
+                                                }
+                                                int z = party.getSize();
+                                                do{
+                                                    
+                                                    if(playersInRange[z]){
+                                                        System.out.println(enemyTitle + " has attacked " + party.getPlayer(z).getName() + " for " + damage + " damage!");
+                                                        party.getPlayer(z).takeDmg(damage);
+                                                        if(party.getPlayer(z).isAlive() == false){
+                                                            System.out.println(party.getPlayer(z).getName() + " has died.");
+                                                            x1 = party.getPlayer(z).getX();
+                                                            y1 = party.getPlayer(z).getY();
+                                                            board.emptyTile(x1, y1);
+                                                        }
+                                                    }
+                                                    z--;
+                                                    
+                                                }while(attackPhaseDone == false && z > 0);
     					}
     				}
     			}
