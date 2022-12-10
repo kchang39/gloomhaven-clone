@@ -65,6 +65,7 @@ public class GloomhavenCloneCS401 {
         }
         
         print.Print(board);
+        System.out.println();
         
     	for(int i = 0; i < party.getSize(); i++){
             int temp = i+1;
@@ -171,6 +172,7 @@ public class GloomhavenCloneCS401 {
                                                     
                                                 }while(validMove = false);
                                                 print.Print(board);
+                                                System.out.println();
     						
     					}
     					if(topAbilityCardsP[b].getTopDamage() != 0) {
@@ -300,6 +302,7 @@ public class GloomhavenCloneCS401 {
                                             
                                         }
                                         print.Print(board);
+                                        System.out.println();
 
     					if(AbilityCardsE[c].getAttack() != 0) {
     						damage = mobs.getTotalDamage(AbilityCardsE[c].getAttack() + mobs.getEnemy(c).getAttack());
