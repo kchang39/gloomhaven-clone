@@ -136,6 +136,6 @@ public class Item {
 
     //checks if two items are equal
     public boolean isEqual(Item item) {
-        return this.name == item.getName();
+        return this.name.toLowerCase() == item.getName().toLowerCase();
     }
 }
