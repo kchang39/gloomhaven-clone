@@ -1,5 +1,6 @@
 package gloomhaven.clone.cs401;
 
+import static java.lang.Math.sqrt;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -105,6 +106,16 @@ public class Board {
         }
         
         return adjacent;
+    }
+    
+    public int getDistance(int x1, int y1, int x2, int y2){
+        double tempX1 = (double)x1;
+        double tempX2 = (double)x2;
+        double tempY1 = (double)y1;
+        double tempY2 = (double)y2;
+        
+        int distance = (int)sqrt((tempX2 - tempX1)*(tempX2 - tempX1) + (tempY2 - tempY1)*(tempY2 - tempY1));
+        return distance;
     }
     
 }
