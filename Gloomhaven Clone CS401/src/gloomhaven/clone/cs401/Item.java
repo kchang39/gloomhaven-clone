@@ -21,8 +21,20 @@ public class Item {
 
     }
 
-    //will need to create a constructor to create a specific item possibly???
-
+    //constructor to create a specific item
+    public Item(String name, int goldCost, String equipSlot, int useSlots, boolean isConsumable,
+        boolean isSpendable, boolean isSpent, String description, int damageModifier, int healthModifier) {
+            this.name = name;
+            this.goldCost = goldCost;
+            this.equipSlot = equipSlot;
+            this.useSlots = useSlots;
+            this.isConsumable = isConsumable;
+            this.isSpendable = isSpendable;
+            this.isSpent = isSpent;
+            this.description = description;
+            this.damageModifier = damageModifier;
+            this.healthModifier = healthModifier;
+    }
 
     //start of getters and setters
     public int getGoldCost() {
@@ -115,18 +127,30 @@ public class Item {
         String desc = getDescription().toLowerCase();
         if (isConsumable) { //consumes item
             if (desc.contains("health")) {
-                consumeItem();
+                useSlots--;
+                if (useSlots == 0) {
+                    consumeItem();
+                }
                 return getHealthModifier();
             } else if (desc.contains("attack")) {
-                consumeItem();
+                useSlots--;
+                if (useSlots == 0) {
+                    consumeItem();
+                }
                 return getDamageModifier();
             }
         } else if (isSpendable) {   //spends item
             if (desc.contains("health")) {
-                spendItem();
+                useSlots--;
+                if (useSlots == 0) {
+                    spendItem();
+                }
                 return getHealthModifier();
             } else if (desc.contains("attack")) {
-                spendItem();
+                useSlots--;
+                if (useSlots == 0) {
+                    spendItem();
+                }
                 return getDamageModifier();
             }
         }
