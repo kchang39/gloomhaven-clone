@@ -78,9 +78,11 @@ public class GloomhavenCloneCS401 {
                     System.out.println("Invalid coordinates.");
                 }
             }while(type != 0);
+            party.getPlayer(i).move(x1, y1);
+            board.updateTile(x1, y1, 1, i);
         }
     	
-    	
+    	print.Print(board);
     	
     	do{//checks if party is alive.
     		party.printParty();
