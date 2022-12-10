@@ -164,6 +164,15 @@ public class Player {
 			y = newY;
 		}
 	}
+
+	//allows player to sell specified item
+	//returns half the gold cost of the item to the player and removes it from their deck
+	public void sellItem(String item) {
+		String itemName = item.toLowerCase();
+		Item foundItem = deck.returnItemCard(itemName);
+		gold += foundItem.getGoldCost()/2;
+		deck.removeItem(foundItem);
+	}
 	
 	public String toString() {
 		return (this.name + "(Lvl:" + level + " - " + job + "): " + "HP(" + currentHP + "/" + maxHP + "), Position(" + x + "," + y + ")");

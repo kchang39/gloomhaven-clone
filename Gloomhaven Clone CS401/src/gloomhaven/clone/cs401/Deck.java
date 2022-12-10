@@ -64,6 +64,23 @@ public class Deck {
 			atkModCards.add(new AttackModifierCard(quantity, mod, timesTwo, type));
 		}
 	}
+
+	//finds Item card with the given name and returns it
+	//return null if not found
+	public Item returnItemCard(String itemName) {
+		for (int i = 0; i < ItemCards.size(); i++) {
+			if (ItemCards.get(i).getName().toLowerCase() == itemName) {
+				return ItemCards.get(i);
+			}
+		}
+
+		return null;
+	}
+
+	//removes given item from owned items
+	public void removeItem(Item item) {
+		ItemCards.remove(item);
+	}
 	
 	public void pickHand() {
 		Scanner input = new Scanner(System.in);
