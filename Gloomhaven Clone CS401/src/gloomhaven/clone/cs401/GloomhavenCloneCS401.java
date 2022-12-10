@@ -1,6 +1,8 @@
 package gloomhaven.clone.cs401;
 
+import static java.lang.Math.sqrt;
 import java.util.Scanner;
+import java.util.Random;
 
 public class GloomhavenCloneCS401 {
 	
@@ -10,7 +12,11 @@ public class GloomhavenCloneCS401 {
     	
     	String partyName;
     	int partySize;
-    	
+        
+        int x1, x2, y1, y2, type;
+        Random rng = new Random();
+        boolean validMove;
+        
     	System.out.print("Enter the name of your party: ");
     	partyName = scanner.nextLine();
     	do {
@@ -37,6 +43,42 @@ public class GloomhavenCloneCS401 {
     	//Scenario Text - Name, level, lore
     	//change the x,y coordinates for every player and monster to a starting position.
     	//edit the board to match player and monster positions
+        System.out.print("Enter length of board: ");
+        x2 = scanner.nextInt();
+        System.out.print("Enter height of board: ");
+        y2 = scanner.nextInt();
+        
+        Board board = null;
+        board.initializeBoardSize(x2, y2);
+        PrintBoard print = null;
+        
+        for(int i = 0; i < mobs.getSize(); i++){
+            do{
+                x1 = rng.nextInt(x2);
+                y1 = rng.nextInt(y2);
+                type = board.CheckObjectTypeInTile(x1, y1);
+                if(type == 0){
+                    mobs.getEnemy(i).move(x1, y1);
+                    board.updateTile(x1, y1, 2, i);
+                }
+            }while(type != 0);
+        }
+        
+        print.Print(board);
+        
+    	for(int i = 0; i < party.getSize(); i++){
+            int temp = i+1;
+            do{
+                System.out.print("Enter party member " + temp +"'s starting x coordinate: ");
+                x1 = scanner.nextInt();
+                System.out.print("Enter party member " + temp +"'s starting y coordinate: ");
+                y1 = scanner.nextInt();
+                type = board.CheckObjectTypeInTile(x1, y1);
+                if(type != 0){
+                    System.out.println("Invalid coordinates.");
+                }
+            }while(type != 0);
+        }
     	
     	
     	
@@ -99,6 +141,31 @@ public class GloomhavenCloneCS401 {
     						//move functionality for players
         					//you can use party.getPlayer(b).move(x, y);
     						//ask the user what coordinats they want to move to and check if that is valid
+                                                do{
+                                                    
+                                                    System.out.print("Enter x coordinate: ");
+                                                    x1 = scanner.nextInt();
+                                                    System.out.print("Enter y coordinate: ");
+                                                    y1 = scanner.nextInt();
+                                                    
+                                                    x2 = party.getPlayer(b).getX();
+                                                    y2 = party.getPlayer(b).getY();
+                                                    double tempX1 = (double)x1;
+                                                    double tempX2 = (double)x2;
+                                                    double tempY1 = (double)y1;
+                                                    double tempY2 = (double)y2;
+                                                    
+                                                    int distance = (int)sqrt((tempX2 - tempX1)*(tempX2 - tempX1) + (tempY2 - tempY1)*(tempY2 - tempY1));
+                                                    if(distance <= movement){
+                                                        validMove = board.Move(x2, y2, x1, y1);
+                                                        if(validMove = false){
+                                                            System.out.println("Invalid move.");
+                                                        }else{
+                                                            party.getPlayer(b).move(x1, y1);
+                                                        }
+                                                    }
+                                                    
+                                                }while(validMove = false);
     						
     					}
     					if(topAbilityCardsP[b].getTopDamage() != 0) {
