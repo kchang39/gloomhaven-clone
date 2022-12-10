@@ -50,7 +50,7 @@ public class GloomhavenCloneCS401 {
         
         Board board = new Board();
         board.initializeBoardSize(x2, y2);
-        PrintBoard print = new PrintBoard;
+        PrintBoard print = new PrintBoard();
         
         for(int i = 0; i < mobs.getSize(); i++){
             do{
