@@ -48,9 +48,9 @@ public class GloomhavenCloneCS401 {
         System.out.print("Enter height of board: ");
         y2 = scanner.nextInt();
         
-        Board board = null;
+        Board board = new Board();
         board.initializeBoardSize(x2, y2);
-        PrintBoard print = null;
+        PrintBoard print = new PrintBoard;
         
         for(int i = 0; i < mobs.getSize(); i++){
             do{
