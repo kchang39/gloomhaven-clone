@@ -327,7 +327,7 @@ public class GloomhavenCloneCS401 {
                                                         playersInRange[z] = false;
                                                     }
                                                 }
-                                                int z = party.getSize();
+                                                int z = party.getSize() - 1;
                                                 do{
                                                     
                                                     if(playersInRange[z]){
